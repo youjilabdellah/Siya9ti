@@ -1,3 +1,14 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "paths": {
+      "@/*": [ "./src/*" ]
+    },
+    // ensure that casing is correct in imports
+    "forceConsistentCasingInFileNames": true,
+    // Use the new React 19 JSX runtime
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
 }
