@@ -1,0 +1,224 @@
+openapi: 3.0.3
+info:
+  title: Driving Instructor Booking API
+  description: API to find driving instructors by city, check availability, pricing, and book lessons online.
+  version: 1.0.0
+
+servers:
+  - url: https://api.mockdriving.com/v1
+
+paths:
+  /cities:
+    get:
+      summary: Get available cities
+      responses:
+        '200':
+          description: List of cities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - Rabat
+                - Casablanca
+                - Marrakech
+
+  /instructors:
+    get:
+      summary: Get instructors by city
+      parameters:
+        - name: city
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of instructors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Instructor'
+
+  /instructors/{id}/availability:
+    get:
+      summary: Get instructor availability
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Availability schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Availability'
+
+  /instructors/{id}/pricing:
+    get:
+      summary: Get instructor pricing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pricing details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pricing'
+
+  /bookings:
+    post:
+      summary: Book a driving lesson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '201':
+          description: Booking confirmed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+
+components:
+  schemas:
+    Instructor:
+      type: object
+      properties:
+        id:
+          type: string
+          example: inst_123
+        name:
+          type: string
+          example: Ahmed Benali
+        city:
+          type: string
+          example: Rabat
+        vehicleType:
+          type: string
+          enum: [manual, automatic]
+        rating:
+          type: number
+          format: float
+          example: 4.7
+        currency:
+          type: string
+          example: MAD
+        pricePerHour:
+          type: number
+          example: 150
+        packages:
+          type: array
+          items:
+            type: object
+            properties:
+              hours:
+                type: integer
+                example: 10
+              price:
+                type: number
+                example: 1400
+
+    Availability:
+      type: object
+      properties:
+        instructorId:
+          type: string
+        slots:
+          type: array
+          items:
+            type: object
+            properties:
+              start:
+                type: string
+                format: date-time
+              end:
+                type: string
+                format: date-time
+              isAvailable:
+                type: boolean
+
+    Pricing:
+      type: object
+      properties:
+        instructorId:
+          type: string
+        currency:
+          type: string
+          example: MAD
+        pricePerHour:
+          type: number
+          example: 150
+        packages:
+          type: array
+          items:
+            type: object
+            properties:
+              hours:
+                type: integer
+                example: 10
+              price:
+                type: number
+                example: 1400
+
+    BookingRequest:
+      type: object
+      required:
+        - instructorId
+        - startTime
+        - endTime
+        - user
+      properties:
+        instructorId:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        user:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+
+    Booking:
+      type: object
+      properties:
+        id:
+          type: string
+          example: book_456
+        instructorId:
+          type: string
+        status:
+          type: string
+          enum: [confirmed, pending, cancelled]
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        totalPrice:
+          type: number
+          example: 150

@@ -8,12 +8,19 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 
 import Background from '../assets/background.png';
 import Logo from '../assets/logo.png';
 
+const CITIES = [
+    { label: 'Rabat', value: '1' },
+    { label: 'Casablanca', value: '2' },
+    { label: 'Safi', value: '3' }
+  ];
+
 export default function HomeScreen() {
-  const [mode, setMode] = useState('MANUAL');
+  const [city, setCity] = useState(null);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,62 +39,37 @@ export default function HomeScreen() {
         style={styles.hero}
       >
         <Text style={styles.heroTitle}>
-          Find a driving instructor in your area.
+          Trouvez un moniteur d’auto-école dans votre ville.
         </Text>
         <Text style={styles.heroSubtitle}>
-          Select your suburb to view driving lesson availability, pricing &
-          to book online.
+          Sélectionnez votre ville pour voir la disponibilité des leçons de conduite, les tarifs et réserver en ligne.
         </Text>
       </ImageBackground>
 
       {/* CARD */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Find a Driving Instructor</Text>
+        <Text style={styles.cardTitle}>Trouver un moniteur d’auto-école</Text>
         <Text style={styles.cardSubtitle}>
-          Including availability, pricing & bookings
+          Y compris les disponibilités, les tarifs et les réservations
         </Text>
 
-        {/* TOGGLE */}
-        <View style={styles.toggleContainer}>
-          <TouchableOpacity
-            style={[
-              styles.toggleButton,
-              mode === "AUTO" && styles.activeLeft,
-            ]}
-            onPress={() => setMode("AUTO")}
-          >
-            <Text
-              style={[
-                styles.toggleText,
-                mode === "AUTO" && styles.activeText,
-              ]}
-            >
-              AUTO
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.toggleButton,
-              mode === "MANUAL" && styles.activeRight,
-            ]}
-            onPress={() => setMode("MANUAL")}
-          >
-            <Text
-              style={[
-                styles.toggleText,
-                mode === "MANUAL" && styles.activeText,
-              ]}
-            >
-              MANUAL
-            </Text>
-          </TouchableOpacity>
-        </View>
-
         {/* DROPDOWN */}
-        <View style={styles.dropdown}>
-          <Text style={styles.dropdownText}>Enter your suburb ▼</Text>
-        </View>
+        <Dropdown
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={{}}
+          inputSearchStyle={{}}
+          iconStyle={{}}
+          data={CITIES}
+          search
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder={'Entrer votre ville'}
+          searchPlaceholder="Search..."
+          value={city}
+          onChange={(item) => setCity(item.value)}
+        />
 
         {/* BUTTON */}
         <TouchableOpacity style={styles.button}>
@@ -102,6 +84,10 @@ const PRIMARY = "#1E2458";
 const YELLOW = "#F7C600";
 
 const styles = StyleSheet.create({
+  placeholderStyle: {
+    fontSize: 16,
+    color: PRIMARY,
+  },
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
@@ -183,11 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee",
   },
 
-  activeLeft: {
-    backgroundColor: "#fff",
-  },
-
-  activeRight: {
+  active: {
     backgroundColor: YELLOW,
   },
 

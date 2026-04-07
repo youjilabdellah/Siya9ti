@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "barberApp.app"
-               BlueprintName = "barberApp"
-               ReferencedContainer = "container:barberApp.xcodeproj">
+               BuildableName = "Siya9ti.app"
+               BlueprintName = "Siya9ti"
+               ReferencedContainer = "container:Siya9ti.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "barberAppTests.xctest"
-               BlueprintName = "barberAppTests"
-               ReferencedContainer = "container:barberApp.xcodeproj">
+               BuildableName = "Siya9tiTests.xctest"
+               BlueprintName = "Siya9tiTests"
+               ReferencedContainer = "container:Siya9ti.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "barberApp.app"
-            BlueprintName = "barberApp"
-            ReferencedContainer = "container:barberApp.xcodeproj">
+            BuildableName = "Siya9ti.app"
+            BlueprintName = "Siya9ti"
+            ReferencedContainer = "container:Siya9ti.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "barberApp.app"
-            BlueprintName = "barberApp"
-            ReferencedContainer = "container:barberApp.xcodeproj">
+            BuildableName = "Siya9ti.app"
+            BlueprintName = "Siya9ti"
+            ReferencedContainer = "container:Siya9ti.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
