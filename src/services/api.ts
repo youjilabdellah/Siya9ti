@@ -3,7 +3,10 @@ import moment from 'moment';
 
 import { VisibilityScope } from '@/types/log.ts';
 import { LanguageFullCode } from '@/types/translation';
+import { AvailabilityResponse } from '@/types/availability';
+import { BookingRequest, BookingResponse } from '@/types/booking';
 import { Instructor } from '@/types/instructor';
+
 import {
     AUTHORIZATION_HEADER_NAME,
     constructAuthorizationHeaderValue,
@@ -1010,10 +1013,24 @@ export const getCities = () => {
     return baseRequest(API_END_POINT.GET_CITIES);
 };
 
-export const getInstructorsByCity = (city: string) : Promise<Instructor> => {
-    return authorizedRequest(
+export const getInstructorsByCity = (city: string): Promise<Instructor[]> => {
+    return baseRequest(
         COMMON.stringFormat(API_END_POINT.GET_INSTRUCTORS_BY_CITY, city)
     );
+};
+
+export const getInstructorAvailability = (
+    instructorId: string
+): Promise<AvailabilityResponse> => {
+    return baseRequest(
+        COMMON.stringFormat(API_END_POINT.GET_INSTRUCTOR_AVAILABILITY, instructorId)
+    );
+};
+
+export const bookLesson = (
+    bookingRequest: BookingRequest
+): Promise<BookingResponse> => {
+    return authorizedRequest(API_END_POINT.BOOK, 'POST', bookingRequest);
 };
 
 const baseRequest = (
@@ -1062,6 +1079,6 @@ const authorizedRequest = (
 const apiClient = axios.create({
     baseURL: COMMON.apiBaseUrl,
     headers: {
-        'Content-type': 'application/json'
-    }
+        'Content-type': 'application/json',
+    },
 });
