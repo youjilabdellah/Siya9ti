@@ -61,7 +61,8 @@ export default function HomeScreen() {
           style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.placeholderStyle}
-          inputSearchStyle={{}}
+          containerStyle={styles.dropdownContainer}
+          inputSearchStyle={styles.inputSearchStyle}
           iconStyle={{}}
           data={cities as any}
           search

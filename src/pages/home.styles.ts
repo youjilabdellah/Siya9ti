@@ -121,4 +121,14 @@ export const styles = StyleSheet.create({
   buttonText: {
     fontWeight: 'bold',
   },
+  dropdownContainer: {
+    borderRadius: 30,
+    overflow: 'hidden',
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+    borderRadius: 30,
+    backgroundColor: Colors.input.background,
+  },
 });
