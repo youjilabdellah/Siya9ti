@@ -55,7 +55,7 @@ const store = configureStore({
                     PERSIST,
                     PURGE,
                     REGISTER,
-                    REHYDRATE
+                    REHYDRATE,
                 ],
                 // Allow Error objects in action payloads (needed for createAsyncThunk rejected actions)
                 // Error objects are not serializable but are needed for Bugsnag stack traces
