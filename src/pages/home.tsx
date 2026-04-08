@@ -63,7 +63,7 @@ export default function HomeScreen() {
           selectedTextStyle={styles.placeholderStyle}
           inputSearchStyle={{}}
           iconStyle={{}}
-          data={cities}
+          data={cities as any}
           search
           maxHeight={300}
           labelField="label"

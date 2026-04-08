@@ -58,7 +58,7 @@ const baseRequest = (
             url,
             headers,
             data,
-            params
+            params,
         })
         .then((response) => response.data)
         .catch((err: AxiosError | Error) => {

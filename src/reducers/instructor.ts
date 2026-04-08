@@ -75,7 +75,7 @@ const instructorSlice = createSlice({
         });
         // when purging reset back to the initial state
         builder.addCase(PURGE, () => initialState);
-    }
+    },
 });
 
 export default instructorSlice.reducer;
