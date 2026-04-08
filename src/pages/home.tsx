@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { getCities, InstructorSelectors } from '../reducers/instructor';
 
@@ -17,8 +18,9 @@ import { styles } from './home.styles';
 import useAppDispatch from '../hooks/useAppDispatch';
 
 export default function HomeScreen() {
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState<string | null>(null);
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<any>();
   const { cities } = InstructorSelectors();
 
   useEffect(() => {
@@ -76,7 +78,15 @@ export default function HomeScreen() {
         />
 
         {/* BUTTON */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            if (city) {
+              navigation.navigate('Instructors', { city });
+            }
+          }}
+          disabled={!city}
+        >
           <Text style={styles.buttonText}>SEARCH NOW</Text>
         </TouchableOpacity>
       </View>
