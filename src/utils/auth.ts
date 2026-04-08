@@ -1,7 +1,6 @@
 import * as Keychain from 'react-native-keychain';
 
-import { unregisterAllNotifications } from '@/services/notification';
-import { resetStore } from '@/store';
+import { resetStore } from '../store';
 
 export const setAuthToken = (token: string) => {
     return Keychain.setGenericPassword('token', token);
@@ -29,7 +28,6 @@ const resetAuthToken = () => {
 };
 
 export const logoutAction = async () => {
-    unregisterAllNotifications();
     await resetAuthToken();
     await resetStore();
 };

@@ -8,6 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCities, InstructorSelectors } from '../reducers/instructor';
+
 
 import Background from '../assets/background.png';
 import Logo from '../assets/logo.png';
@@ -21,6 +24,12 @@ const CITIES = [
 
 export default function HomeScreen() {
   const [city, setCity] = useState(null);
+  const dispatch = useDispatch();
+  const { loading, cities, instructors } = InstructorSelectors();
+
+  React.useEffect(() => {
+    dispatch(getCities({}));
+  }, [dispatch]);
 
   return (
     <SafeAreaView style={styles.container}>
