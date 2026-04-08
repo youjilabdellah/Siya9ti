@@ -19,11 +19,23 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      label:
+                        type: string
+                        example: Rabat
+                      value:
+                        type: string
+                        example: '1'
               example:
-                - Rabat
-                - Casablanca
-                - Marrakech
+                - label: Rabat
+                  value: '1'
+                - label: Casablanca
+                  value: '2'
+                - label: Marrakech
+                  value: '3'
 
   /instructors:
     get:

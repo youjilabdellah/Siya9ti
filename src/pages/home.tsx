@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,26 +8,20 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { useDispatch, useSelector } from 'react-redux';
 import { getCities, InstructorSelectors } from '../reducers/instructor';
 
 
 import Background from '../assets/background.png';
 import Logo from '../assets/logo.png';
 import { styles } from './home.styles';
-
-const CITIES = [
-    { label: 'Rabat', value: '1' },
-    { label: 'Casablanca', value: '2' },
-    { label: 'Safi', value: '3' },
-  ];
+import useAppDispatch from '../hooks/useAppDispatch';
 
 export default function HomeScreen() {
   const [city, setCity] = useState(null);
-  const dispatch = useDispatch();
-  const { loading, cities, instructors } = InstructorSelectors();
+  const dispatch = useAppDispatch();
+  const { cities } = InstructorSelectors();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getCities({}));
   }, [dispatch]);
 
@@ -69,7 +63,7 @@ export default function HomeScreen() {
           selectedTextStyle={styles.placeholderStyle}
           inputSearchStyle={{}}
           iconStyle={{}}
-          data={CITIES}
+          data={cities}
           search
           maxHeight={300}
           labelField="label"

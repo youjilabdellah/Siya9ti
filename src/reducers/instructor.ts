@@ -8,11 +8,12 @@ import { PURGE } from 'redux-persist';
 import * as api from '../services/api';
 import { RootState } from '@/store';
 
+import { City } from '@/types/core';
 import { Instructor } from '../types/instructor';
 
 export interface InstructorState {
     loading: boolean;
-    cities: string[];
+    cities: City[];
     instructors: Instructor[];
 }
 
@@ -81,7 +82,7 @@ export default instructorSlice.reducer;
 
 interface InstructorSelectorsType {
     loading: boolean | undefined;
-    cities: string[] | undefined;
+    cities: City[] | undefined;
     instructors: Instructor[] | undefined;
 }
 

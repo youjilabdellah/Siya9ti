@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 
 import { AvailabilityResponse } from '../types/availability';
 import { BookingRequest, BookingResponse } from '../types/booking';
+import { City } from '@/types/core';
 import { Instructor } from '../types/instructor';
 
 import {
@@ -20,7 +21,7 @@ const API_END_POINT = {
 
 type API_METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
-export const getCities = () => {
+export const getCities = (): Promise<City[]> => {
     return baseRequest(API_END_POINT.GET_CITIES);
 };
 
@@ -59,7 +60,7 @@ const baseRequest = (
             data,
             params
         })
-        .then((response) => response.data.data)
+        .then((response) => response.data)
         .catch((err: AxiosError | Error) => {
             const error = new Error(err.message);
             error.name = err.name;
