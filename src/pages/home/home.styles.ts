@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../theme/colors';
+import { Colors } from '../../theme/colors';
 
 export const styles = StyleSheet.create({
   placeholderStyle: {
@@ -120,6 +120,9 @@ export const styles = StyleSheet.create({
 
   buttonText: {
     fontWeight: 'bold',
+  },
+  disabledButton: {
+    backgroundColor: Colors.button.disabled,
   },
   dropdownContainer: {
     borderRadius: 30,

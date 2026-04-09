@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../theme/colors';
+import { Colors } from '../../theme/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,14 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.background.card,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border.primary,
+  },
+  backButton: {
+    marginBottom: 12,
+  },
+  backButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: Colors.button.primary,
   },
   title: {
     fontSize: 28,

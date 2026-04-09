@@ -17,6 +17,7 @@ export const Colors = {
   },
   button: {
     primary: '#F7C600',
+    disabled: '#CCCCCC',
   },
   input: {
     background: '#F0F0F0',

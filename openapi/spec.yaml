@@ -52,9 +52,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Instructor'
+                $ref: '#/components/schemas/Instructors'
 
   /instructors/{id}/availability:
     get:
@@ -109,42 +107,85 @@ paths:
 
 components:
   schemas:
-    Instructor:
-      type: object
-      properties:
-        id:
-          type: string
-          example: inst_123
-        name:
-          type: string
-          example: Ahmed Benali
-        city:
-          type: string
-          example: Rabat
-        vehicleType:
-          type: string
-          enum: [manual, automatic]
-        rating:
-          type: number
-          format: float
-          example: 4.7
-        currency:
-          type: string
-          example: MAD
-        pricePerHour:
-          type: number
-          example: 150
-        packages:
-          type: array
-          items:
-            type: object
-            properties:
-              hours:
-                type: integer
-                example: 10
-              price:
-                type: number
-                example: 1400
+    Instructors:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          city:
+            type: string
+          vehicleType:
+            type: string
+            enum: [manual, automatic]
+          rating:
+            type: number
+            format: float
+          currency:
+            type: string
+          pricePerHour:
+            type: number
+          packages:
+            type: array
+            items:
+              type: object
+              properties:
+                hours:
+                  type: integer
+                price:
+                  type: number
+      example:
+        - id: inst_101
+          name: Ahmed Benali
+          city: Rabat
+          vehicleType: manual
+          rating: 4.7
+          currency: MAD
+          pricePerHour: 150
+          packages:
+            - hours: 10
+              price: 1400
+            - hours: 20
+              price: 2600
+        - id: inst_102
+          name: Fatima Essaoui
+          city: Casablanca
+          vehicleType: automatic
+          rating: 4.8
+          currency: MAD
+          pricePerHour: 160
+          packages:
+            - hours: 5
+              price: 750
+            - hours: 15
+              price: 2200
+        - id: inst_103
+          name: Mohammed Hassan
+          city: Marrakech
+          vehicleType: manual
+          rating: 4.5
+          currency: MAD
+          pricePerHour: 120
+          packages:
+            - hours: 10
+              price: 1100
+            - hours: 20
+              price: 2000
+        - id: inst_104
+          name: Noor El Moussawy
+          city: Fez
+          vehicleType: automatic
+          rating: 4.9
+          currency: MAD
+          pricePerHour: 180
+          packages:
+            - hours: 10
+              price: 1700
+            - hours: 25
+              price: 4000
 
     Availability:
       type: object

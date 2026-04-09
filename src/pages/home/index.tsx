@@ -9,16 +9,17 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { getCities, InstructorSelectors } from '../reducers/instructor';
+import { getCities, InstructorSelectors } from '../../reducers/instructor';
 
 
-import Background from '../assets/background.png';
-import Logo from '../assets/logo.png';
+import Background from '../../assets/background.png';
+import Logo from '../../assets/logo.png';
 import { styles } from './home.styles';
-import useAppDispatch from '../hooks/useAppDispatch';
+import useAppDispatch from '../../hooks/useAppDispatch';
+import { City } from '../../types/core';
 
 export default function HomeScreen() {
-  const [city, setCity] = useState<string | null>(null);
+  const [city, setCity] = useState<City | null>(null);
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const { cities } = InstructorSelectors();
@@ -44,7 +45,7 @@ export default function HomeScreen() {
         style={styles.hero}
       >
         <Text style={styles.heroTitle}>
-          Trouvez un moniteur d’auto-école dans votre ville.
+          Trouvez un moniteur d'auto-école dans votre ville.
         </Text>
         <Text style={styles.heroSubtitle}>
           Sélectionnez votre ville pour voir la disponibilité des leçons de conduite, les tarifs et réserver en ligne.
@@ -53,7 +54,7 @@ export default function HomeScreen() {
 
       {/* CARD */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Trouver un moniteur d’auto-école</Text>
+        <Text style={styles.cardTitle}>Trouver un moniteur d'auto-école</Text>
         <Text style={styles.cardSubtitle}>
           Y compris les disponibilités, les tarifs et les réservations
         </Text>
@@ -74,12 +75,12 @@ export default function HomeScreen() {
           placeholder={'Entrer votre ville'}
           searchPlaceholder="Search..."
           value={city}
-          onChange={(item) => setCity(item.value)}
+          onChange={(item) => setCity(item as City)}
         />
 
         {/* BUTTON */}
         <TouchableOpacity
-          style={styles.button}
+          style={{ ...styles.button, ...(!city ? styles.disabledButton : {}) }}
           onPress={() => {
             if (city) {
               navigation.navigate('Instructors', { city });
