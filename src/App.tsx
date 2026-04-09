@@ -6,8 +6,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import store, { persistor } from './store';
 import LoadingOverlay from './components/LoadingOverlay';
 import { RootState } from '@/store';
+import BookingCalendarScreen from './pages/booking';
 import HomeScreen from './pages/home';
 import InstructorsScreen from './pages/instractors';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -15,12 +17,16 @@ function AppContent(): React.JSX.Element {
   const loading = useSelector((state: RootState) => state.instructor?.loading);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={HomeScreen}/>
-        <Stack.Screen name="Instructors" component={InstructorsScreen}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={HomeScreen}/>
+          <Stack.Screen name="Instructors" component={InstructorsScreen}/>
+          <Stack.Screen name="Booking" component={BookingCalendarScreen}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+      <LoadingOverlay visible={loading} />
+    </>
   );
 }
 

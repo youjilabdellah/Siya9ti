@@ -27,20 +27,23 @@ export default function InstructorsScreen(): React.JSX.Element {
     }
   }, [city, dispatch]);
 
+  const onBookInstructor = (instructorId: string) => {
+    // Naviguer vers l'écran de réservation avec l'instructeur sélectionné
+    (navigation as any).navigate('Booking', { instructorId });
+  };
+
   const renderInstructor = ({ item }: { item: any }) => (
     <InstructorCard
       name={item.name}
       title={`${item.city} - Note: ${item.rating} / 5`}
       badges={[
         { icon: '💰', label: `${item.pricePerHour} ${item.currency} / h` },
-        // Add more badges as needed
+        // Ajouter plus de badges si nécessaire
       ]}
       onViewProfile={() => {
-        // Handle view profile action
+        // Gérer l'action de voir le profil
       }}
-      onBookOnline={() => {
-        // Handle book online action
-      }}
+      onBookOnline={() => onBookInstructor(item.id)}
     />
   );
 

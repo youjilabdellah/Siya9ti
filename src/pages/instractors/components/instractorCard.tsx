@@ -22,15 +22,15 @@ type InstructorCardProps = {
 };
 
 const BADGES: Badge[] = [
-  { icon: '🌍', label: 'Intl conversions' },
-  { icon: '🚗', label: 'Your car or mine' },
-  { icon: '⭐', label: 'Free cancellation' },
-  { icon: '📦', label: 'Test package' },
+  { icon: '🌍', label: 'Conversions internationales' },
+  { icon: '🚗', label: 'Votre voiture ou la mienne' },
+  { icon: '⭐', label: 'Annulation gratuite' },
+  { icon: '📦', label: 'Forfait test' },
 ];
 
 export default function InstructorCard({
-  name = 'Darrell Steward',
-  title = 'Standard Driving Instructor',
+  name = 'Jean Dupont',
+  title = 'Instructeur de conduite standard',
   avatarUri = 'https://randomuser.me/api/portraits/men/32.jpg',
   badges = BADGES,
   onViewProfile,
@@ -79,7 +79,7 @@ export default function InstructorCard({
           onPress={onViewProfile}
           activeOpacity={0.8}
         >
-          <Text style={styles.outlineButtonText}>View Profile</Text>
+          <Text style={styles.outlineButtonText}>Voir le profil</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -87,7 +87,7 @@ export default function InstructorCard({
           onPress={onBookOnline}
           activeOpacity={0.8}
         >
-          <Text style={styles.filledButtonText}>Book Online Now</Text>
+          <Text style={styles.filledButtonText}>Réserver</Text>
         </TouchableOpacity>
       </View>
     </View>
