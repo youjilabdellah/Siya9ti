@@ -59,9 +59,9 @@ const store = configureStore({
                 ],
                 // Allow Error objects in action payloads (needed for createAsyncThunk rejected actions)
                 // Error objects are not serializable but are needed for Bugsnag stack traces
-                ignoredActionPaths: ['payload', 'meta.arg']
-            }
-        })
+                ignoredActionPaths: ['payload', 'meta.arg'],
+            },
+        }),
 });
 
 export default store;

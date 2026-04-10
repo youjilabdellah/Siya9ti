@@ -53,7 +53,7 @@ const translateUserLog = (apiUserLog: any): UserLog | undefined => {
     return {
         id,
         date: loadedDate,
-        created: loadedCreated
+        created: loadedCreated,
     };
 };
 
@@ -82,7 +82,7 @@ export const translateUserWeight = (
         ...userLog,
         weight: weight,
         unit: unit,
-        text: text!
+        text: text!,
     };
 };
 
@@ -105,7 +105,7 @@ export const translateUserImage = (
 
     return {
         ...userLog,
-        image: image!
+        image: image!,
     };
 };
 
@@ -126,6 +126,6 @@ export const translateUserNote = (apiUserNote: any): UserNote | undefined => {
 
     return {
         ...userLog,
-        text: text!
+        text: text!,
     };
 };

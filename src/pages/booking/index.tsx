@@ -43,7 +43,9 @@ function generateTimeSlots(): TimeSlot[] {
   const slots: TimeSlot[] = [];
   for (let h = 6; h <= 20; h++) {
     for (let m = 0; m < 60; m += 15) {
-      if (h === 20 && m > 0) break;
+      if (h === 20 && m > 0) {
+        break;
+      }
       const hh = h;
       const mm = m.toString().padStart(2, '0');
       const display = `${hh.toString().padStart(2, '0')}:${mm}`;
@@ -92,9 +94,7 @@ const LegendDot: React.FC<LegendDotProps> = ({ booked }) => (
   <View
     style={[
       styles.legendDot,
-      booked
-        ? { backgroundColor: COLORS.darkText }
-        : { backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: '#aaa' },
+      booked ? styles.legendDotBooked : styles.legendDotAvailable,
     ]}
   />
 );
@@ -129,10 +129,10 @@ const DayView: React.FC<DayViewProps> = ({ selectedSlots, onToggleSlot }) => (
             style={[
               styles.slotDot,
               isBooked
-                ? { backgroundColor: COLORS.navy }
+                ? styles.slotDotBooked
                 : isSelected
-                  ? { backgroundColor: COLORS.yellow }
-                  : { backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: '#aaa' },
+                  ? styles.slotDotSelected
+                  : styles.slotDotAvailable,
             ]}
           />
           <Text style={styles.daySlotTime}>{slot.label}</Text>
@@ -267,7 +267,9 @@ const MonthView: React.FC<MonthViewProps> = ({ currentDate, selectedSlots, onTog
       {weeks.map((week, wi) => (
         <View key={wi} style={styles.monthWeekRow}>
           {week.map((day, di) => {
-            if (!day) return <View key={di} style={styles.monthDayCell} />;
+            if (!day) {
+              return <View key={di} style={styles.monthDayCell} />;
+            }
             const isToday = (
               today.getFullYear() === year &&
               today.getMonth() === month &&
@@ -327,6 +329,7 @@ const BookingCalendar: React.FC = () => {
   const monthLabel = `${MONTHS[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
   const prevDay = () => {
+    if(isToday) {   return; } // prevent going to past days
     const d = new Date(currentDate);
     d.setDate(d.getDate() - 1);
     setCurrentDate(d);
@@ -338,6 +341,7 @@ const BookingCalendar: React.FC = () => {
   };
   const prevMonth = () => {
     const d = new Date(currentDate);
+    if (d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear()) { return; } // prevent going to past months
     d.setMonth(d.getMonth() - 1);
     setCurrentDate(d);
   };
@@ -350,8 +354,8 @@ const BookingCalendar: React.FC = () => {
   const toggleSlot = useCallback((key: string) => {
     setSelectedSlots((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
+      if (next.has(key)) {next.delete(key);}
+      else {next.add(key);}
       return next;
     });
   }, []);
@@ -359,16 +363,16 @@ const BookingCalendar: React.FC = () => {
   const handleBook = () => {
     if (selectedSlots.size === 0) {
       Alert.alert('Aucun créneau sélectionné', 'Veuillez sélectionner au moins un créneau avant de réserver.');
-      return;
+    } else {
+      Alert.alert(
+        'Confirmer la réservation',
+        `Vous avez sélectionné ${selectedSlots.size} créneau(s). Continuer la réservation avec Jay ?`,
+        [
+          { text: 'Annuler', style: 'cancel' },
+          { text: 'Confirmer', onPress: () => Alert.alert('Réservé !', 'Votre leçon a été réservée.') },
+        ],
+      );
     }
-    Alert.alert(
-      'Confirmer la réservation',
-      `Vous avez sélectionné ${selectedSlots.size} créneau(s). Continuer la réservation avec Jay ?`,
-      [
-        { text: 'Annuler', style: 'cancel' },
-        { text: 'Confirmer', onPress: () => Alert.alert('Réservé !', 'Votre leçon a été réservée.') },
-      ],
-    );
   };
 
   return (
@@ -503,6 +507,14 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 6,
   },
+  legendDotBooked: {
+    backgroundColor: COLORS.darkText,
+  },
+  legendDotAvailable: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1.5,
+    borderColor: '#aaa',
+  },
   legendText: {
     fontSize: 12,
     color: COLORS.darkText,
@@ -608,6 +620,17 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
+  },
+  slotDotBooked: {
+    backgroundColor: COLORS.navy,
+  },
+  slotDotSelected: {
+    backgroundColor: COLORS.yellow,
+  },
+  slotDotAvailable: {
+    backgroundColor: COLORS.white,
+    borderWidth: 1.5,
+    borderColor: '#aaa',
   },
   daySlotTime: {
     width: 58,

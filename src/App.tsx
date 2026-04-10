@@ -1,3 +1,4 @@
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,7 +18,7 @@ function AppContent(): React.JSX.Element {
   const loading = useSelector((state: RootState) => state.instructor?.loading);
 
   return (
-    <>
+    <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={HomeScreen}/>
@@ -26,7 +27,7 @@ function AppContent(): React.JSX.Element {
         </Stack.Navigator>
       </NavigationContainer>
       <LoadingOverlay visible={loading} />
-    </>
+    </SafeAreaProvider>
   );
 }
 

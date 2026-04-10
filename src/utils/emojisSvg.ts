@@ -4,7 +4,7 @@ import {
     HandIcon,
     NewChatIcon,
     FlagIconSvg,
-    LikeIcon
+    LikeIcon,
 } from '@/assets/svg';
 import { Emoji, EmojiSvg } from '@/types/emoji';
 
@@ -15,7 +15,7 @@ export const emojisLogNote: EmojiSvg[] = [
         displayName: 'Happy',
         emoji: HappyIcon,
         color: '#F1B85B',
-        defaultColor: '#BCBCBC'
+        defaultColor: '#BCBCBC',
     },
     {
         id: 2,
@@ -23,7 +23,7 @@ export const emojisLogNote: EmojiSvg[] = [
         displayName: 'Heart',
         emoji: HeartIcon,
         color: '#F57A59',
-        defaultColor: '#BCBCBC'
+        defaultColor: '#BCBCBC',
     },
     {
         id: 3,
@@ -31,7 +31,7 @@ export const emojisLogNote: EmojiSvg[] = [
         displayName: 'Hand',
         emoji: HandIcon,
         color: '#F1B85B',
-        defaultColor: '#BCBCBC'
+        defaultColor: '#BCBCBC',
     },
     {
         id: 4,
@@ -39,7 +39,7 @@ export const emojisLogNote: EmojiSvg[] = [
         displayName: 'Comment',
         emoji: NewChatIcon,
         color: '#F1B85B',
-        defaultColor: '#BCBCBC'
+        defaultColor: '#BCBCBC',
     },
     {
         id: 4,
@@ -47,8 +47,8 @@ export const emojisLogNote: EmojiSvg[] = [
         displayName: 'Report',
         emoji: FlagIconSvg,
         color: '#F1B85B',
-        defaultColor: '#BCBCBC'
-    }
+        defaultColor: '#BCBCBC',
+    },
 ];
 
 const emojis: EmojiSvg[] = [
@@ -58,7 +58,7 @@ const emojis: EmojiSvg[] = [
         displayName: 'Like',
         emoji: LikeIcon,
         color: '#F1B85B',
-        defaultColor: '#BCBCBC'
+        defaultColor: '#BCBCBC',
     },
     {
         id: 4,
@@ -66,7 +66,7 @@ const emojis: EmojiSvg[] = [
         displayName: 'Comment',
         emoji: NewChatIcon,
         color: '#62B1E3',
-        defaultColor: '#BCBCBC'
+        defaultColor: '#BCBCBC',
     },
     {
         id: 5,
@@ -74,8 +74,8 @@ const emojis: EmojiSvg[] = [
         displayName: 'Report',
         emoji: FlagIconSvg,
         color: '#F57A59',
-        defaultColor: '#BCBCBC'
-    }
+        defaultColor: '#BCBCBC',
+    },
 ];
 
 export const popupEmojis: Emoji[] = [
@@ -85,7 +85,7 @@ export const popupEmojis: Emoji[] = [
         displayName: 'Like',
         emoji: require('@/assets/png/thumbs-up.png'),
         defaultColor: '#BCBCBC',
-        shortCode: '👍'
+        shortCode: '👍',
     },
     {
         id: 2,
@@ -93,7 +93,7 @@ export const popupEmojis: Emoji[] = [
         displayName: 'Happy',
         emoji: require('@/assets/png/slightly-smiling-face.png'),
         defaultColor: '#BCBCBC',
-        shortCode: '🙂'
+        shortCode: '🙂',
     },
     {
         id: 3,
@@ -101,7 +101,7 @@ export const popupEmojis: Emoji[] = [
         displayName: 'HeartEyes',
         emoji: require('@/assets/png/heart-eyes-emoji.png'),
         defaultColor: '#BCBCBC',
-        shortCode: '😍'
+        shortCode: '😍',
     },
     {
         id: 4,
@@ -109,7 +109,7 @@ export const popupEmojis: Emoji[] = [
         displayName: 'Fire',
         emoji: require('@/assets/png/fire-emoji.png'),
         defaultColor: '#BCBCBC',
-        shortCode: '🔥'
+        shortCode: '🔥',
     },
     {
         id: 5,
@@ -117,7 +117,7 @@ export const popupEmojis: Emoji[] = [
         displayName: 'Hundred',
         emoji: require('@/assets/png/hundred-emoji.png'),
         defaultColor: '#BCBCBC',
-        shortCode: '💯'
+        shortCode: '💯',
     },
     {
         id: 6,
@@ -125,8 +125,8 @@ export const popupEmojis: Emoji[] = [
         displayName: 'Screaming',
         emoji: require('@/assets/png/screaming-emoji.png'),
         defaultColor: '#BCBCBC',
-        shortCode: '😱'
-    }
+        shortCode: '😱',
+    },
 ];
 
 export default emojis;

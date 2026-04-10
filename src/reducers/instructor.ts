@@ -47,6 +47,19 @@ export const getInstructors = createAsyncThunk(
     }
 );
 
+export const getInstructorBookedSlots = createAsyncThunk(
+    'instructor/getInstructorBookedSlots',
+    async (options: {
+        instructorId: string;
+    }, { rejectWithValue }) => {
+        try {
+            return await api.getInstructorBookedSlots(options.instructorId);
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
+
 const instructorSlice = createSlice({
     name: 'instructor',
     initialState: initialState,
@@ -71,6 +84,24 @@ const instructorSlice = createSlice({
             state.instructors = action.payload;
         });
         builder.addCase(getInstructors.rejected, (state) => {
+            state.loading = false;
+        });
+        builder.addCase(getInstructorBookedSlots.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(getInstructorBookedSlots.fulfilled, (state, action) => {
+            state.loading = false;
+            state.instructors = state.instructors?.map((instructor) => {
+                if (instructor.id === (action.meta.arg.instructorId)) {
+                    return {
+                        ...instructor,
+                        bookedSlots: action.payload,
+                    };
+                }
+                return instructor;
+            });
+        });
+        builder.addCase(getInstructorBookedSlots.rejected, (state) => {
             state.loading = false;
         });
         // when purging reset back to the initial state

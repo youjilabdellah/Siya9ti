@@ -36,7 +36,7 @@ const toastConfig = {
                 {text1}
             </Text>
         </View>
-    )
+    ),
 };
 
 export const successToast = (message: string) => {
@@ -46,7 +46,7 @@ export const successToast = (message: string) => {
             type: 'successResponse',
             text1: message,
             position: 'bottom',
-            visibilityTime
+            visibilityTime,
         });
     }, 1000);
 };
@@ -63,7 +63,7 @@ export const errorToast = (
             type: 'errorResponse',
             text1: message,
             position: position,
-            visibilityTime
+            visibilityTime,
         });
     }, 1000);
 };
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
         color: Colors.text.white,
         marginLeft: 10,
         fontSize: 10,
-        flex: 1
+        flex: 1,
     },
     errorIconStyle: {
         width: 17,
-        height: 17
+        height: 17,
     },
     errorContainer: {
         width: '90%',
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10
+        padding: 10,
     },
     successContainer: {
         height: 55,
@@ -96,6 +96,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 20
-    }
+        paddingHorizontal: 20,
+    },
 });

@@ -18,7 +18,7 @@ export const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
     return result ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
+        b: parseInt(result[3], 16),
     } : { r: 255, g: 255, b: 255 };
 };
 
@@ -131,7 +131,7 @@ export const simulateColorExtraction = (imageSource: string): Promise<ExtractedC
                     hslToHex(baseHue2, 60 + (Math.abs(sourceHash >> 4) % 40), 45 + (Math.abs(sourceHash >> 12) % 30)),
                     hslToHex(baseHue3, 80 + (Math.abs(sourceHash >> 8) % 20), 40 + (Math.abs(sourceHash >> 16) % 35)),
                     hslToHex((baseHue1 + 60) % 360, 65 + (Math.abs(sourceHash >> 12) % 35), 55 + (Math.abs(sourceHash >> 20) % 20)),
-                    hslToHex((baseHue1 + 180) % 360, 75 + (Math.abs(sourceHash >> 16) % 25), 50 + (Math.abs(sourceHash >> 24) % 25))
+                    hslToHex((baseHue1 + 180) % 360, 75 + (Math.abs(sourceHash >> 16) % 25), 50 + (Math.abs(sourceHash >> 24) % 25)),
                 ];
 
                 // Select best colors based on visibility and contrast
@@ -159,14 +159,14 @@ export const simulateColorExtraction = (imageSource: string): Promise<ExtractedC
                     vibrant,
                     prominent,
                     contrast: bestContrast,
-                    contrastRatio: bestContrastRatio
+                    contrastRatio: bestContrastRatio,
                 });
 
                 resolve({
                     dominant,
                     vibrant,
                     prominent,
-                    contrast: bestContrast
+                    contrast: bestContrast,
                 });
 
             } catch (error) {
@@ -175,7 +175,7 @@ export const simulateColorExtraction = (imageSource: string): Promise<ExtractedC
                     dominant: '#4A90E2',
                     vibrant: '#FFD700',
                     prominent: '#FF6B6B',
-                    contrast: '#FFFFFF'
+                    contrast: '#FFFFFF',
                 });
             }
         }, 100); // Small delay to simulate processing

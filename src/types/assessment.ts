@@ -89,9 +89,9 @@ export const translateGallupAssessment = (
         version: version,
         progress: {
             current: progress?.current,
-            total: progress?.total
+            total: progress?.total,
         },
-        resumedAssessment: resumed_assessment
+        resumedAssessment: resumed_assessment,
     };
 };
 
@@ -108,7 +108,7 @@ export const translateAssessmentQuestion = (
         order,
         type,
         min_value,
-        max_value
+        max_value,
     } = questionInfo;
 
     return {
@@ -119,12 +119,12 @@ export const translateAssessmentQuestion = (
         choices: answers.map(
             ({ answer_code, text: choiceText }: QuestionChoice) => ({
                 id: answer_code,
-                label: choiceText
+                label: choiceText,
             })
         ),
         type,
         answerCode: null,
         min: Number(min_value),
-        max: Number(max_value) < 1 ? 99999 : Number(max_value)
+        max: Number(max_value) < 1 ? 99999 : Number(max_value),
     };
 };

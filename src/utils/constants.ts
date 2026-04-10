@@ -1,6 +1,6 @@
 import {
     MyTrackingViewStackRoutes,
-    SocialViewStackRoutes
+    SocialViewStackRoutes,
 } from '@/navigation/mainTabNavigation';
 import { TranslationLanguage } from '@/types/translation';
 
@@ -51,7 +51,7 @@ export const Constants: ConstantsType = {
         unknownError: 'Oops, something went wrong. Please try again later.',
         emailAlreadyExists: 'Email already exists',
         zipCodeNotSupported:
-            'The Blue Zones Challenge app is not available in your location yet'
+            'The Blue Zones Challenge app is not available in your location yet',
     },
     errorCodes: {
         passwordDoesNotConform: 'password_does_not_conform',
@@ -67,7 +67,7 @@ export const Constants: ConstantsType = {
         capacityExceeded: 'capacity_exceeded',
         badToken: 'bad_token',
         invalidInvitedEmail: 'invalid_invited_email',
-        challengeModeDisabled: 'challenge_mode_disabled'
+        challengeModeDisabled: 'challenge_mode_disabled',
     },
     mixPanelEvents: {
         tabNavigation: 'Tab Navigation',
@@ -111,7 +111,7 @@ export const Constants: ConstantsType = {
         changeNameUsage: 'Change Name Usage',
         userInvitationUsage: 'User Invitation Usage',
         reportedMemberUsage: 'ReportedMember Usage',
-        inviteMoaiPageUsage: 'Invite Moai Usage'
+        inviteMoaiPageUsage: 'Invite Moai Usage',
     },
     assessments: {
         vitality: {
@@ -121,7 +121,7 @@ export const Constants: ConstantsType = {
             description:
                 'Take the True Vitality Test to estimate your life expectancy and how you can potentially live a longer healthier life!',
             readout:
-                'Learn more about vitality and longevity https://example.com/vitality. and also look into this link https://www.google.com for more info.'
+                'Learn more about vitality and longevity https://example.com/vitality. and also look into this link https://www.google.com for more info.',
         },
         dietid: {
             title: 'True Nutrition Test',
@@ -130,7 +130,7 @@ export const Constants: ConstantsType = {
             description:
                 'Take the True Nutrition Test to learn how good your diet is from 1 to 10 and what you can do to improve your nutrition!',
             readout:
-                'Explore dietary guidelines and nutrition tips https://example.com/nutrition.'
+                'Explore dietary guidelines and nutrition tips https://example.com/nutrition.',
         },
         happiness: {
             title: 'True Happiness Test',
@@ -139,7 +139,7 @@ export const Constants: ConstantsType = {
             description:
                 'The Happiness Test assesses your happiness level from 1 to 100 and how your environment is affecting it.',
             readout:
-                'Discover ways to improve happiness https://example.com/happiness. and also look into this link https://www.google.com for more info.'
+                'Discover ways to improve happiness https://example.com/happiness. and also look into this link https://www.google.com for more info.',
         },
         purpose: {
             title: 'The Purpose Checkup',
@@ -148,7 +148,7 @@ export const Constants: ConstantsType = {
             description:
                 'The Purpose Checkup gives a measure of the power of purpose you are experiencing in your life at present between 0 to 84.',
             readout:
-                'Understand the impact of purpose in life https://example.com/purpose.'
+                'Understand the impact of purpose in life https://example.com/purpose.',
         },
         ladder: {
             title: 'Cantril Ladder Test',
@@ -157,7 +157,7 @@ export const Constants: ConstantsType = {
             description:
                 'The Cantril Ladder Test measures your life satisfaction on a scale of 0 to 10, revealing how your surroundings shape your overall well-being.',
             readout:
-                'Read about life satisfaction and well-being https://example.com/ladder.'
+                'Read about life satisfaction and well-being https://example.com/ladder.',
         },
         r2c_confidence: {
             title: 'Readiness To Change Confidence',
@@ -166,7 +166,7 @@ export const Constants: ConstantsType = {
             description:
                 'The Cantril Ladder Test measures your life satisfaction, revealing how your surroundings shape your overall well-being.',
             readout:
-                'Find strategies for building confidence https://example.com/confidence.'
+                'Find strategies for building confidence https://example.com/confidence.',
         },
         r2c_importance: {
             title: 'Readiness To Change Importance',
@@ -175,7 +175,7 @@ export const Constants: ConstantsType = {
             description:
                 'The Cantril Ladder Test measures your life satisfaction, revealing how your surroundings shape your overall well-being.',
             readout:
-                'Learn why change is important https://example.com/importance.'
+                'Learn why change is important https://example.com/importance.',
         },
         gallup: {
             title: 'Gallup Well-being Assessment',
@@ -184,24 +184,24 @@ export const Constants: ConstantsType = {
             description:
                 'The Gallup well-being is an assessment tool widely used by employers and organizations to identify individual aptitudes and areas of strength.',
             readout:
-                'Learn why change is important https://example.com/importance.'
-        }
+                'Learn why change is important https://example.com/importance.',
+        },
     },
     maxActivityPointsPerPeriod: {
         daily: 12,
         weekly: 100,
-        monthly: 400
+        monthly: 400,
     },
     urls: {
         termsOfUse: 'https://www.bluezones.com/mobileterms/',
         blogLearnMore: 'https://www.bluezones.com/challengereads/',
-        privacyPolicy: 'https://www.bluezones.com/privacy/'
+        privacyPolicy: 'https://www.bluezones.com/privacy/',
     },
     periods: {
         all: 'All',
         daily: 'Daily',
         weekly: 'Weekly',
-        monthly: 'Monthly'
+        monthly: 'Monthly',
     },
     assessmentsCode: [
         'vitality',
@@ -212,7 +212,7 @@ export const Constants: ConstantsType = {
         'r2c_importance',
         'r2c_confidence',
         'real_age',
-        'gallup'
+        'gallup',
     ],
     menuDropdownOptions: {
         myTrackingViewStack: [
@@ -220,59 +220,59 @@ export const Constants: ConstantsType = {
                 id: 'myTracking',
                 title: 'My Tracking',
                 tabName: 'MyTrackingView',
-                screenName: MyTrackingViewStackRoutes.MY_TRACKING
+                screenName: MyTrackingViewStackRoutes.MY_TRACKING,
             },
             {
                 id: 'assessmentHistory',
                 title: 'Assessments History',
                 tabName: 'MyTrackingView',
-                screenName: MyTrackingViewStackRoutes.MY_ASSESSMENT_HISTORY
+                screenName: MyTrackingViewStackRoutes.MY_ASSESSMENT_HISTORY,
             },
             {
                 id: 'pointHistory',
                 title: 'Points History',
                 tabName: 'MyTrackingView',
-                screenName: MyTrackingViewStackRoutes.MY_POINTS_HISTORY
+                screenName: MyTrackingViewStackRoutes.MY_POINTS_HISTORY,
             },
             {
                 id: 'sharingSetting',
                 title: 'Sharing Settings',
                 tabName: 'MyTrackingView',
-                screenName: MyTrackingViewStackRoutes.MY_SHARING_SETTINGS
-            }
+                screenName: MyTrackingViewStackRoutes.MY_SHARING_SETTINGS,
+            },
         ],
         socialViewStack: [
             {
                 id: 'moaiFeed',
                 title: 'Moai Feed',
                 tabName: 'SocialView',
-                screenName: SocialViewStackRoutes.MY_FEEDS
+                screenName: SocialViewStackRoutes.MY_FEEDS,
             },
             {
                 id: 'manageMyMoai',
                 title: 'Manage my Moai',
                 tabName: 'SocialView',
-                screenName: SocialViewStackRoutes.MANAGE_MY_MOAI
+                screenName: SocialViewStackRoutes.MANAGE_MY_MOAI,
             },
             {
                 id: 'leaveAMoai',
                 title: 'Leave a Moai',
                 tabName: 'SocialView',
-                screenName: SocialViewStackRoutes.My_MOAIS
+                screenName: SocialViewStackRoutes.My_MOAIS,
             },
             {
                 id: 'moaiProgress',
                 title: 'Moai Progress',
                 tabName: 'SocialView',
-                screenName: SocialViewStackRoutes.MOAI_PROGRESS
-            }
-        ]
+                screenName: SocialViewStackRoutes.MOAI_PROGRESS,
+            },
+        ],
     },
     challengesType: {
         individualQualifier: 'individual_qualifier',
         individualLeaderboard: 'individual_leaderboard',
         teamQualifier: 'team_qualifier',
-        teamLeaderboard: 'team_leaderboard'
+        teamLeaderboard: 'team_leaderboard',
     },
     activityActions: {
         openTrueVitalityAssessment: 1,
@@ -285,35 +285,35 @@ export const Constants: ConstantsType = {
         openRealAgeAssessment: 8,
         openGallupAssessment: 9,
         openPostPhoto: 20,
-        openQrScanner: 21
+        openQrScanner: 21,
     },
     regex: {
         password:
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+={}[\]|\\:;"'<>,.?/~`])/
-    }
+            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+={}[\]|\\:;"'<>,.?/~`])/,
+    },
 };
 
 export const LANGUAGE_ENGLISH: TranslationLanguage = {
     shortCode: 'en',
     fullCode: 'en-us',
-    title: 'English'
+    title: 'English',
 };
 
 export const LANGUAGE_SPANISH: TranslationLanguage = {
     shortCode: 'es',
     fullCode: 'es-419',
-    title: 'Español'
+    title: 'Español',
 };
 
 export const TranslationLanguages: TranslationLanguage[] = [
     LANGUAGE_ENGLISH,
-    LANGUAGE_SPANISH
+    LANGUAGE_SPANISH,
 ];
 
 export const VERIFICATION_TYPE: VerificationType = {
     code: 'code',
     emailDomain: 'email_domain',
-    bsocMemberId: 'bsoc_member_id'
+    bsocMemberId: 'bsoc_member_id',
 };
 
 export const INIT_PAGE_LOAD_STORAGE_KEY = 'hasVisitedChallengeWelcome';

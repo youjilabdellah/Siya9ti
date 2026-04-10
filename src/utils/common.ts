@@ -48,7 +48,7 @@ export const COMMON = {
             return dateObj.toLocaleTimeString([], {
                 hour: '2-digit',
                 minute: '2-digit',
-                hour12: true
+                hour12: true,
             });
         } catch (error) {
             return 'Invalid Time';
@@ -63,7 +63,7 @@ export const COMMON = {
     getWeekDateRange(activeDateOfMonth: Date) {
         return {
             start: moment(activeDateOfMonth).startOf('isoWeek').toDate(),
-            end: moment(activeDateOfMonth).endOf('isoWeek').toDate()
+            end: moment(activeDateOfMonth).endOf('isoWeek').toDate(),
         };
     },
     getMonthDateRange(activeDateOfMonth: Date) {
@@ -90,5 +90,5 @@ export const COMMON = {
         const diagonalInches = diagonalPx / dpi;
 
         return diagonalInches < 5;
-    }
+    },
 };

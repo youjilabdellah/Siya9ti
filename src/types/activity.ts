@@ -76,7 +76,7 @@ export const translateActivity = (apiActivity: any): Activity | undefined => {
         action,
         stretch,
         order,
-        image = null
+        image = null,
     } = apiActivity;
 
     if (
@@ -90,7 +90,7 @@ export const translateActivity = (apiActivity: any): Activity | undefined => {
             type,
             action,
             stretch,
-            order
+            order,
         ].includes(undefined)
     ) {
         return undefined;
@@ -107,7 +107,7 @@ export const translateActivity = (apiActivity: any): Activity | undefined => {
         action,
         stretch,
         order,
-        image
+        image,
     };
 };
 
@@ -125,7 +125,7 @@ export const translateUserActivity = (
         points,
         steps_complete,
         members,
-        cancelled_assignment
+        cancelled_assignment,
     } = apiUserActivity;
 
     if (
@@ -151,7 +151,7 @@ export const translateUserActivity = (
         points,
         stepsComplete: steps_complete,
         members,
-        cancelledAssignment: cancelled_assignment
+        cancelledAssignment: cancelled_assignment,
     };
 };
 
@@ -167,6 +167,6 @@ export const translateActivityDetails = (
     return {
         text,
         image,
-        video
+        video,
     };
 };

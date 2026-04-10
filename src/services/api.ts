@@ -16,6 +16,7 @@ const API_END_POINT = {
     GET_INSTRUCTORS_BY_CITY: 'instructors?city={0}',
     GET_INSTRUCTOR_AVAILABILITY: 'instructors/{0}/availability',
     GET_INSTRUCTOR_PRICING: 'instructors/{0}/pricing',
+    GET_INSTRUCTOR_BOOKED_SLOTS: 'instructors/{0}/booked',
     BOOK: 'bookings',
 };
 
@@ -36,6 +37,12 @@ export const getInstructorAvailability = (
 ): Promise<AvailabilityResponse> => {
     return baseRequest(
         COMMON.stringFormat(API_END_POINT.GET_INSTRUCTOR_AVAILABILITY, instructorId)
+    );
+};
+
+export const getInstructorBookedSlots = (instructorId: string): Promise<{[key: string]: string[]}[]> => {
+    return baseRequest(
+        COMMON.stringFormat(API_END_POINT.GET_INSTRUCTOR_BOOKED_SLOTS, instructorId)
     );
 };
 

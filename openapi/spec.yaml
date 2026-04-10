@@ -88,6 +88,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pricing'
 
+  /instructors/{id}/booked:
+    get:
+      summary: Get booked times for an instructor
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Booked slots by date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookedTimesByDate'
+              example:
+                '2026-04-09':
+                  - '8:00'
+                  - '9:30'
+                  - '10:00'
+                  - '13:00'
+                  - '14:30'
+                '2026-04-10':
+                  - '8:30'
+                  - '11:00'
+                  - '12:00'
+                  - '13:00'
+                  - '14:00'
+
   /bookings:
     post:
       summary: Book a driving lesson
@@ -205,6 +235,27 @@ components:
                 format: date-time
               isAvailable:
                 type: boolean
+
+    BookedTimesByDate:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+          example: '08:00'
+      example:
+        '2026-04-09':
+          - '8:00'
+          - '9:30'
+          - '10:00'
+          - '13:00'
+          - '14:30'
+        '2026-04-10':
+          - '8:30'
+          - '11:00'
+          - '12:00'
+          - '13:00'
+          - '14:00'
 
     Pricing:
       type: object

@@ -58,7 +58,7 @@ export const translateUserInfo = (apiUserInfo: any): UserInfo | undefined => {
         username: username!,
         firstName: first_name,
         lastName: last_name,
-        email: email!
+        email: email!,
     };
 };
 
@@ -82,7 +82,7 @@ export const translateUserProfile = (
         sub_organization_name,
         blue_shield_member_id,
         registration_start_date,
-        registration_code
+        registration_code,
     } = apiUserProfile;
 
     if ([program_start_date, zip_code].includes(undefined)) {
@@ -113,11 +113,11 @@ export const translateUserProfile = (
             autoShareActivities: settings.auto_share_activities,
             autoSharePhotos: settings.auto_share_photos,
             autoShareJournals: settings.auto_share_journals,
-            autoShareWeights: settings.auto_share_weight
+            autoShareWeights: settings.auto_share_weight,
         },
         isRegistrationCodeExpired: is_registration_code_expired,
         subOrganizationName: sub_organization_name,
         registrationStartDate: registration_start_date,
-        registrationCode: registration_code
+        registrationCode: registration_code,
     };
 };
