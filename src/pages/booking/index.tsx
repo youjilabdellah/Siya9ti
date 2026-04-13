@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,10 @@ import {
   Alert,
   SafeAreaView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
+import useAppDispatch from '../../hooks/useAppDispatch';
+import { getInstructorBookedSlots } from '../../reducers/instructor';
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 // type ViewMode = 'Jour' | 'Semaine' | 'Mois';
@@ -42,7 +44,7 @@ const MONTHS = [
 function generateTimeSlots(): TimeSlot[] {
   const slots: TimeSlot[] = [];
   for (let h = 6; h <= 20; h++) {
-    for (let m = 0; m < 60; m += 15) {
+    for (let m = 0; m < 60; m += 60) {
       if (h === 20 && m > 0) {
         break;
       }
@@ -56,14 +58,6 @@ function generateTimeSlots(): TimeSlot[] {
 }
 
 const TIME_SLOTS = generateTimeSlots();
-
-// Booked slots: "HH:MM_dayIndex" (dayIndex 0–6 for week view)
-const DEFAULT_BOOKED = new Set([
-  '8:00_1', '9:30_1', '10:00_1',
-  '13:00_3', '14:30_3',
-  '9:00_2', '11:00_5',
-]);
-
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function isSameDay(a: Date, b: Date): boolean {
@@ -103,15 +97,16 @@ const LegendDot: React.FC<LegendDotProps> = ({ booked }) => (
 // ─── Day View ─────────────────────────────────────────────────────────────────
 
 interface DayViewProps {
+  bookedSlots: Set<string>;
   selectedSlots: Set<string>;
   onToggleSlot: (key: string) => void;
 }
 
-const DayView: React.FC<DayViewProps> = ({ selectedSlots, onToggleSlot }) => (
+const DayView: React.FC<DayViewProps> = ({ bookedSlots, selectedSlots, onToggleSlot }) => (
   <ScrollView style={styles.dayContainer} showsVerticalScrollIndicator={false}>
     {TIME_SLOTS.map((slot) => {
       const key = `${slot.time}_day`;
-      const isBooked = DEFAULT_BOOKED.has(`${slot.time}_1`);
+      const isBooked = bookedSlots.has(`${slot.time}_1`);
       const isSelected = selectedSlots.has(key);
 
       return (
@@ -318,6 +313,11 @@ const BookingCalendar: React.FC = () => {
   //const [viewMode, setViewMode] = useState<ViewMode>('Jour');
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [selectedSlots, setSelectedSlots] = useState<Set<string>>(new Set());
+  const [bookedSlots, setBookedSlots] = useState<Set<string>>(new Set());
+  const dispatch = useAppDispatch();
+  const route = useRoute();
+  const params = route.params as { instructorId: string } | undefined;
+  const instructorId = params?.instructorId;
 
   const today = new Date();
   const isToday = isSameDay(currentDate, today);
@@ -343,7 +343,7 @@ const BookingCalendar: React.FC = () => {
     const d = new Date(currentDate);
     if (d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear()) { return; } // prevent going to past months
     d.setMonth(d.getMonth() - 1);
-    setCurrentDate(d);
+    setCurrentDate(new Date(Math.max(d as any, today as any))); // prevent going to past months
   };
   const nextMonth = () => {
     const d = new Date(currentDate);
@@ -374,6 +374,26 @@ const BookingCalendar: React.FC = () => {
       );
     }
   };
+
+  useEffect(() => {
+    if(instructorId){
+      dispatch(getInstructorBookedSlots({ instructorId })).unwrap()
+        .then((slots) => {
+          // Convert "HH:MM_dayIndex" to "HH:MM_day" for day view (or other formats for week/month)
+          const keys = Object.keys(slots);
+          for (let i = 0; i < keys.length; i++) {
+            const s = keys[i];
+            if(isSameDay(currentDate, new Date(s))) {
+              setBookedSlots(new Set(slots[s].map((time) => `${time}_1`)));
+              break;
+            }
+            if(i === keys.length - 1) {
+              setBookedSlots(new Set()); // No booked slots for this day
+            }
+          }
+        });
+    }
+  }, [dispatch, instructorId, currentDate]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -448,7 +468,7 @@ const BookingCalendar: React.FC = () => {
 
           {/* Calendar content */}
           <View style={styles.calContent}>
-            <DayView selectedSlots={selectedSlots} onToggleSlot={toggleSlot} />
+            <DayView selectedSlots={selectedSlots} onToggleSlot={toggleSlot} bookedSlots={bookedSlots}/>
           </View>
 
           {/* Info */}

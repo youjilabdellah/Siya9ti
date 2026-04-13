@@ -11,5 +11,5 @@ export interface Instructor {
   currency: string; // e.g. "MAD"
   pricePerHour: number;
   packages: PricingPackage[];
-  bookedSlots?: {[key: string]: string[]}[];
+  bookedSlots?: {[key: string]: string[]};
 }

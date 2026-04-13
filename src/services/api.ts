@@ -40,7 +40,7 @@ export const getInstructorAvailability = (
     );
 };
 
-export const getInstructorBookedSlots = (instructorId: string): Promise<{[key: string]: string[]}[]> => {
+export const getInstructorBookedSlots = (instructorId: string): Promise<{[key: string]: string[]}> => {
     return baseRequest(
         COMMON.stringFormat(API_END_POINT.GET_INSTRUCTOR_BOOKED_SLOTS, instructorId)
     );
