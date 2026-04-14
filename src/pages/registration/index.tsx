@@ -2,11 +2,11 @@ import {
     View,
     Text,
     TouchableOpacity,
-    ScrollView,
     SafeAreaView,
     StatusBar,
     Alert,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Formik } from 'formik';
 
@@ -17,8 +17,6 @@ import {
     type FormData,
 } from './components';
 import { styles } from './styles';
-import { use } from 'react';
-
 // ─── Main Screen ──────────────────────────────────────────────────────────────
 
 export default function RegistrationScreen() {
@@ -88,10 +86,12 @@ export default function RegistrationScreen() {
                     <StatusBar barStyle="dark-content" backgroundColor="#fff" />
                     <StepIndicator />
 
-                    <ScrollView
+                    <KeyboardAwareScrollView
                         contentContainerStyle={styles.scroll}
                         showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps="handled"
+                        enableOnAndroid
+                        extraHeight={120}
                     >
                         {/* Personal Details */}
                         <View style={styles.card}>
@@ -131,7 +131,7 @@ export default function RegistrationScreen() {
                                 </View>
                                 <Text style={styles.termsText}>
                                     J'accepte{' '}
-                                    <Text style={styles.termsLink}>les conditions générales d'EzLicence</Text>
+                                    <Text style={styles.termsLink}>les conditions générales de Siya9ati</Text>
                                 </Text>
                             </TouchableOpacity>
                             {submitCount > 0 && errors.agreed ? <Text style={styles.errorText}>{errors.agreed}</Text> : null}
@@ -140,7 +140,7 @@ export default function RegistrationScreen() {
                                 <Text style={styles.continueBtnText}>CONTINUER →</Text>
                             </TouchableOpacity>
                         </View>
-                    </ScrollView>
+                    </KeyboardAwareScrollView>
                 </SafeAreaView>
             )}
         </Formik>

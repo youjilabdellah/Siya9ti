@@ -22,7 +22,7 @@ export interface FormData {
 
 // ─── Step Indicator ──────────────────────────────────────────────────────────
 
-const steps = ['CHOISIR', 'RÉSERVER', 'VOS DÉTAILS', 'PAIEMENT'];
+const steps = ['CHOISIR', 'RÉSERVER', 'VOS DÉTAILS'];
 
 export const StepIndicator: React.FC = () => (
   <View style={styles.stepContainer}>
