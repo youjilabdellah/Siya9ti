@@ -10,6 +10,7 @@ import { RootState } from '@/store';
 import BookingCalendarScreen from './pages/booking';
 import HomeScreen from './pages/home';
 import InstructorsScreen from './pages/instractors';
+import RegistrationScreen from './pages/registration';
 
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ function AppContent(): React.JSX.Element {
           <Stack.Screen name="Home" component={HomeScreen}/>
           <Stack.Screen name="Instructors" component={InstructorsScreen}/>
           <Stack.Screen name="Booking" component={BookingCalendarScreen}/>
+          <Stack.Screen name="Registration" component={RegistrationScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
       <LoadingOverlay visible={loading} />

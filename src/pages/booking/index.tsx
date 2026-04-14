@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import useAppDispatch from '../../hooks/useAppDispatch';
-import { getInstructorBookedSlots } from '../../reducers/instructor';
+import { getInstructorBookedSlots, InstructorSelectors } from '../../reducers/instructor';
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 // type ViewMode = 'Jour' | 'Semaine' | 'Mois';
@@ -318,6 +318,7 @@ const BookingCalendar: React.FC = () => {
   const route = useRoute();
   const params = route.params as { instructorId: string } | undefined;
   const instructorId = params?.instructorId;
+  const { instructors } = InstructorSelectors();
 
   const today = new Date();
   const isToday = isSameDay(currentDate, today);
@@ -369,11 +370,16 @@ const BookingCalendar: React.FC = () => {
         `Vous avez sélectionné ${selectedSlots.size} créneau(s). Continuer la réservation avec Jay ?`,
         [
           { text: 'Annuler', style: 'cancel' },
-          { text: 'Confirmer', onPress: () => Alert.alert('Réservé !', 'Votre leçon a été réservée.') },
+          { text: 'Confirmer', onPress: () => navigation.navigate('Registration', { instructorId, selectedSlots: Array.from(selectedSlots), currentDate }) },
         ],
       );
     }
   };
+
+  const instractor = useMemo(() => {
+    if(!instructorId || !instructors) { return null; }
+    return instructors.find((inst) => inst.id === instructorId);
+  }, [instructors, instructorId]);
 
   useEffect(() => {
     if(instructorId){
@@ -480,7 +486,7 @@ const BookingCalendar: React.FC = () => {
 
           {/* Book button */}
           <TouchableOpacity style={styles.bookBtn} onPress={handleBook} activeOpacity={0.85}>
-            <Text style={styles.bookBtnText}>RÉSERVER AVEC JAY</Text>
+            <Text style={styles.bookBtnText}>RÉSERVER AVEC {instractor?.name}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
