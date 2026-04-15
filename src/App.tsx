@@ -9,7 +9,7 @@ import store, { persistor } from './store';
 import LoadingOverlay from './components/LoadingOverlay';
 import { RootState } from '@/store';
 import BookingCalendarScreen from './pages/booking';
-import BottomTabBar from './pages/bottomTabBar.tsx';
+import BottomTabBar from './navigation/bottomTabBar';
 import HomeScreen from './pages/home';
 import InstructorsScreen from './pages/instractors';
 import RegistrationScreen from './pages/registration';
