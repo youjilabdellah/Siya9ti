@@ -2,12 +2,15 @@ import { BookingStatus } from './core';
 
 export interface BookingRequest {
   instructorId: string;
-  startTime: string; // ISO date-time
-  endTime: string;   // ISO date-time
+  selectedSlots: string[];
+  date: string; // ISO date string (e.g., '2026-04-15')
   user: {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phone: string;
+    agreed: boolean; // User agreement to terms and conditions
+    password?: string; // Optional password field for registration
   };
 }
 
@@ -15,7 +18,7 @@ export interface BookingResponse {
   id: string;
   instructorId: string;
   status: BookingStatus;
-  startTime: string;
-  endTime: string;
+  date: string; // ISO date string
+  selectedSlots: string[];
   totalPrice: number;
 }

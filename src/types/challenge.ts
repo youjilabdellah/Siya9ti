@@ -174,7 +174,7 @@ export const translateLeaderboard = (apiResponse: any): Leaderboard => {
         qualification_points,
         total_points,
         reward_positions,
-        participants
+        participants,
     } = apiResponse;
 
     return {
@@ -182,7 +182,7 @@ export const translateLeaderboard = (apiResponse: any): Leaderboard => {
         qualificationPoints: qualification_points,
         totalPoints: total_points,
         rewardPositions: reward_positions,
-        participants: participants
+        participants: participants,
     };
 };
 
@@ -210,7 +210,7 @@ export const translateChallengeReward = (
         challenge_type,
         promo_code,
         store_url,
-        image
+        image,
     } = apiResponse;
 
     return {
@@ -232,7 +232,7 @@ export const translateChallengeReward = (
         amount,
         promoCode: promo_code,
         storeUrl: store_url,
-        image
+        image,
     };
 };
 
@@ -249,6 +249,6 @@ export const translateChallengeRewards = (
         hasNext: has_next,
         hasPrevious: has_previous,
         nextPageNumber: next_page_number,
-        list: list.map(translateChallengeReward)
+        list: list.map(translateChallengeReward),
     };
 };

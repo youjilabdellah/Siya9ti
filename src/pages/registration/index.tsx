@@ -23,6 +23,7 @@ export default function RegistrationScreen() {
     const route = useRoute();
     const navigation = useNavigation();
     const params = route.params as { instructorId: string, selectedSlots: string[], currentDate: Date } | undefined;
+    console.log('Received params:', params);
 
     const initialValues: FormData = {
         firstName: '',
@@ -67,6 +68,7 @@ export default function RegistrationScreen() {
     };
 
     const handleSubmit = (values: FormData) => {
+        console.log('Form submitted with values:', values);
         Alert.alert('Formulaire soumis', 'Les données ont été enregistrées.');
     };
 

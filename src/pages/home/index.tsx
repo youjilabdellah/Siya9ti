@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  Image,
   ImageBackground,
   SafeAreaView,
   TouchableOpacity,
@@ -13,7 +12,6 @@ import { getCities, InstructorSelectors } from '../../reducers/instructor';
 
 
 import Background from '../../assets/background.png';
-import Logo from '../../assets/logo.png';
 import { styles } from './home.styles';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { City } from '../../types/core';
@@ -30,15 +28,6 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER */}
-      <View style={styles.header}>
-        <Image
-          source={Logo}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-      </View>
-
       {/* HERO */}
       <ImageBackground
         source={Background}

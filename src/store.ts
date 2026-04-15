@@ -13,9 +13,11 @@ import {
 } from 'redux-persist';
 
 import InstructorReducer from './reducers/instructor';
+import ReservationsReducer from './reducers/reservations';
 
 const rootReducer = combineReducers({
     instructor: InstructorReducer,
+    reservations: ReservationsReducer,
 }) as any;
 
 const ignoreLoadingTransform = createTransform(

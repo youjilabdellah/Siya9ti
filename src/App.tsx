@@ -2,18 +2,35 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import store, { persistor } from './store';
 import LoadingOverlay from './components/LoadingOverlay';
 import { RootState } from '@/store';
 import BookingCalendarScreen from './pages/booking';
+import BottomTabBar from './pages/bottomTabBar.tsx';
 import HomeScreen from './pages/home';
 import InstructorsScreen from './pages/instractors';
 import RegistrationScreen from './pages/registration';
-
+import ReservationsScreen from './pages/reservations';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const renderBottomTabBar = (props: BottomTabBarProps) => <BottomTabBar {...props} />;
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      tabBar={renderBottomTabBar}
+      screenOptions={{ headerShown: false }}
+    >
+      <Tab.Screen name="home" component={HomeScreen} />
+      <Tab.Screen name="reservations" component={ReservationsScreen} />
+    </Tab.Navigator>
+  );
+}
 
 function AppContent(): React.JSX.Element {
   const loading = useSelector((state: RootState) => state.instructor?.loading);
@@ -22,7 +39,7 @@ function AppContent(): React.JSX.Element {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={HomeScreen}/>
+          <Stack.Screen name="Home" component={TabNavigator}/>
           <Stack.Screen name="Instructors" component={InstructorsScreen}/>
           <Stack.Screen name="Booking" component={BookingCalendarScreen}/>
           <Stack.Screen name="Registration" component={RegistrationScreen}/>

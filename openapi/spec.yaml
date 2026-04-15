@@ -105,13 +105,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/BookedTimesByDate'
               example:
-                '2026-04-13':
+                '2026-04-15':
                   - '8:00'
                   - '9:00'
                   - '10:00'
                   - '13:00'
                   - '14:30'
-                '2026-04-14':
+                '2026-04-16':
                   - '8:00'
                   - '11:00'
                   - '12:00'
@@ -284,28 +284,35 @@ components:
       type: object
       required:
         - instructorId
-        - startTime
-        - endTime
+        - selectedSlots
         - user
       properties:
         instructorId:
           type: string
-        startTime:
+        selectedSlots:
+          type: array
+          items:
+            type: string
+        date:
           type: string
-          format: date-time
-        endTime:
-          type: string
-          format: date-time
+          format: date
         user:
           type: object
           properties:
-            name:
+            first_name:
+              type: string
+            last_name:
               type: string
             email:
               type: string
             phone:
               type: string
-
+            password:
+              type: string
+              required: false
+            agreed:
+              type: boolean
+              description: User agreement to terms and conditions
     Booking:
       type: object
       properties:
@@ -317,12 +324,15 @@ components:
         status:
           type: string
           enum: [confirmed, pending, cancelled]
-        startTime:
+        date:
           type: string
-          format: date-time
-        endTime:
-          type: string
-          format: date-time
+          format: date
+          example: '2026-04-15'
+        selectedSlots:
+          type: array
+          items:
+            type: string
+          example: ['8:00', '9:00']
         totalPrice:
           type: number
           example: 150
