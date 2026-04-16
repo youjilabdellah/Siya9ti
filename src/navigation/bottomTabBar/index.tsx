@@ -44,9 +44,28 @@ const CalendarIcon = ({ color }: { color: string }) => (
   </Svg>
 );
 
+const UserIcon = ({ color }: { color: string }) => (
+  <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M20 21a8 8 0 10-16 0"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <Path
+      d="M12 11a4 4 0 100-8 4 4 0 000 8z"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
+
 // ─── Tab Config ────────────────────────────────────────────────────────────────
 
-type TabKey = 'home' | 'reservations';
+type TabKey = 'home' | 'reservations' | 'moi';
 
 interface Tab {
   key: TabKey;
@@ -58,6 +77,7 @@ interface Tab {
 const TABS: Tab[] = [
   { key: 'home',         label: 'Accueil',       icon: (c) => <HomeIcon color={c} /> },
   { key: 'reservations', label: 'Réservations',   icon: (c) => <CalendarIcon color={c} /> },
+  { key: 'moi',          label: 'Moi',            icon: (c) => <UserIcon color={c} /> },
 ];
 
 const GOLD = '#F5B800';

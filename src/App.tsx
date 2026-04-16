@@ -15,6 +15,7 @@ import InstructorsScreen from './pages/instractors';
 import RegistrationScreen from './pages/registration';
 import ReservationsScreen from './pages/reservations';
 import ReservationConfirmationScreen from './pages/reservationConfirmation';
+import ProfileScreen from './pages/profile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,6 +30,7 @@ function TabNavigator() {
     >
       <Tab.Screen name="home" component={HomeScreen} />
       <Tab.Screen name="reservations" component={ReservationsScreen} />
+      <Tab.Screen name="moi" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }

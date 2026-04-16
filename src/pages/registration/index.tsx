@@ -11,6 +11,7 @@ import { Formik } from 'formik';
 import { successToast, errorToast } from '../../utils/customToast';
 
 import useAppDispatch from '../../hooks/useAppDispatch';
+import { setUserInfo } from '../../reducers/user';
 import { createBooking } from '../../reducers/reservations';
 
 import {
@@ -87,6 +88,12 @@ export default function RegistrationScreen() {
         .unwrap()
         .then((booking) => {
             successToast('Votre réservation a été créée avec succès.');
+            dispatch(setUserInfo({
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                phone: values.phone,
+            }));
             (navigation.navigate as any)('ReservationConfirmation', {
                 bookingId: booking?.id,
                 date: booking?.date,
