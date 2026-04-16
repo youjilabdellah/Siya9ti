@@ -37,6 +37,34 @@ paths:
                 - label: Marrakech
                   value: '3'
 
+  /user/login:
+    post:
+      summary: User login
+      description: Authenticate user with email and password, returns user info and authentication token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              example:
+                firstName: Ahmed
+                lastName: Benali
+                email: ahmed@example.com
+                phone: "+212612345678"
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '401':
+          description: Invalid email or password
+        '404':
+          description: User not found
+
   /instructors:
     get:
       summary: Get instructors by city
@@ -135,7 +163,90 @@ paths:
               schema:
                 $ref: '#/components/schemas/Booking'
 
+  /my-reservations:
+    get:
+      summary: Get my reservations
+      description: Returns the authenticated user's reservations.
+      security:
+        - AuthToken: []
+      responses:
+        '200':
+          description: List of reservations for the authenticated user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MyReservation'
+              example:
+                - id: book_901
+                  instructorId: inst_101
+                  selectedSlots:
+                    - 11:00_day
+                    - 12:00_day
+                  date: '2026-04-15T10:07:03.708Z'
+                  status: confirmed
+                  totalPrice: 300
+                - id: book_902
+                  instructorId: inst_204
+                  selectedSlots:
+                    - 09:00_day
+                    - 10:00_day
+                  date: '2026-05-02T08:30:00.000Z'
+                  status: pending
+                  totalPrice: 280
+                - id: book_903
+                  instructorId: inst_309
+                  selectedSlots:
+                    - 15:00_day
+                  date: '2026-03-21T14:15:00.000Z'
+                  status: cancelled
+                  totalPrice: 140
+        '401':
+          description: Missing or invalid authorization token
+
+  /my-reservation/cancel/{idreservation}:
+    post:
+      summary: Cancel my reservation
+      description: Cancels a reservation belonging to the authenticated user.
+      security:
+        - AuthToken: []
+      parameters:
+        - name: idreservation
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Reservation identifier to cancel.
+      responses:
+        '200':
+          description: Reservation cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyReservation'
+              example:
+                id: book_902
+                instructorId: inst_204
+                selectedSlots:
+                  - 09:00_day
+                  - 10:00_day
+                date: '2026-05-02T08:30:00.000Z'
+                status: cancelled
+                totalPrice: 280
+        '401':
+          description: Missing or invalid authorization token
+        '404':
+          description: Reservation not found
+
 components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Authorization
+      description: Use the Authorization header in the format `Token <token>`.
+
   schemas:
     Instructors:
       type: array
@@ -313,6 +424,10 @@ components:
             agreed:
               type: boolean
               description: User agreement to terms and conditions
+            token:
+              type: string
+              required: false
+              description: Optional token for authentication or future reference
     Booking:
       type: object
       properties:
@@ -336,3 +451,82 @@ components:
         totalPrice:
           type: number
           example: 150
+        token:
+          type: string
+          example: 'abc123token'
+
+    MyReservation:
+      type: object
+      required:
+        - id
+        - instructorId
+        - selectedSlots
+        - date
+        - status
+        - totalPrice
+      properties:
+        id:
+          type: string
+          example: book_901
+        instructorId:
+          type: string
+          example: inst_101
+        selectedSlots:
+          type: array
+          items:
+            type: string
+          example:
+            - 11:00_day
+            - 12:00_day
+        date:
+          type: string
+          format: date-time
+          example: '2026-04-15T10:07:03.708Z'
+        status:
+          type: string
+          enum: [confirmed, pending, cancelled]
+          example: confirmed
+        totalPrice:
+          type: number
+          example: 300
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: ahmed@example.com
+        password:
+          type: string
+          example: "password123"
+
+    LoginResponse:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - token
+      properties:
+        firstName:
+          type: string
+          example: Ahmed
+        lastName:
+          type: string
+          example: Benali
+        email:
+          type: string
+          format: email
+          example: ahmed@example.com
+        phone:
+          type: string
+          example: "+212612345678"
+        token:
+          type: string
+          description: Authentication token for use in Authorization header
+          example: "abc1234token"

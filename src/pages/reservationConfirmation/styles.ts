@@ -1,0 +1,115 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  safe: {
+    flex: 1,
+    backgroundColor: '#F7F9FC',
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 18,
+    paddingBottom: 28,
+  },
+  card: {
+    marginTop: 26,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 18,
+    padding: 22,
+    borderWidth: 1,
+    borderColor: '#E4E7EC',
+  },
+  iconWrap: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#FFF4E5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 14,
+  },
+  icon: {
+    fontSize: 28,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#1F2937',
+  },
+  subtitle: {
+    marginTop: 8,
+    fontSize: 15,
+    lineHeight: 22,
+    color: '#374151',
+  },
+  statusBadge: {
+    alignSelf: 'flex-start',
+    marginTop: 16,
+    backgroundColor: '#FEF3C7',
+    borderRadius: 999,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+  },
+  statusText: {
+    color: '#92400E',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.3,
+  },
+  sectionTitle: {
+    marginTop: 20,
+    marginBottom: 10,
+    color: '#111827',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  detailRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingVertical: 7,
+  },
+  detailLabel: {
+    color: '#6B7280',
+    fontSize: 14,
+    marginRight: 12,
+    flex: 1,
+  },
+  detailValue: {
+    color: '#111827',
+    fontSize: 14,
+    fontWeight: '600',
+    flex: 1,
+    textAlign: 'right',
+  },
+  actions: {
+    marginTop: 'auto',
+    gap: 12,
+  },
+  primaryButton: {
+    backgroundColor: '#0F172A',
+    borderRadius: 12,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  primaryButtonText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  secondaryButton: {
+    borderRadius: 12,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    backgroundColor: '#FFFFFF',
+  },
+  secondaryButtonText: {
+    color: '#0F172A',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+});

@@ -4,11 +4,14 @@ import {
     TouchableOpacity,
     SafeAreaView,
     StatusBar,
-    Alert,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Formik } from 'formik';
+import { successToast, errorToast } from '../../utils/customToast';
+
+import useAppDispatch from '../../hooks/useAppDispatch';
+import { createBooking } from '../../reducers/reservations';
 
 import {
     StepIndicator,
@@ -23,7 +26,7 @@ export default function RegistrationScreen() {
     const route = useRoute();
     const navigation = useNavigation();
     const params = route.params as { instructorId: string, selectedSlots: string[], currentDate: Date } | undefined;
-    console.log('Received params:', params);
+    const dispatch = useAppDispatch();
 
     const initialValues: FormData = {
         firstName: '',
@@ -67,14 +70,38 @@ export default function RegistrationScreen() {
         return errors;
     };
 
-    const handleSubmit = (values: FormData) => {
-        console.log('Form submitted with values:', values);
-        Alert.alert('Formulaire soumis', 'Les données ont été enregistrées.');
+    const handleFormSubmit = (values: FormData) => {
+        dispatch(createBooking({
+            instructorId: params?.instructorId || '',
+            selectedSlots: params?.selectedSlots || [],
+            date: params?.currentDate.toISOString().split('T')[0] || '',
+            user: {
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                phone: values.phone,
+                password: values.password,
+                agreed: values.agreed,
+            },
+        }))
+        .unwrap()
+        .then((booking) => {
+            successToast('Votre réservation a été créée avec succès.');
+            (navigation.navigate as any)('ReservationConfirmation', {
+                bookingId: booking?.id,
+                date: booking?.date,
+                selectedSlots: booking?.selectedSlots,
+                status: booking?.status || 'pending',
+            });
+        })
+        .catch(() => {
+            errorToast('Une erreur est survenue lors de la création de la réservation. Veuillez réessayer.');
+        });
     };
 
     return (
-        <Formik initialValues={initialValues} validate={validate} onSubmit={handleSubmit}>
-            {({ handleChange, handleBlur, handleSubmit, values, setFieldValue, errors, touched, submitCount }) => (
+        <Formik initialValues={initialValues} validate={validate} onSubmit={handleFormSubmit}>
+            {({ handleChange, handleBlur, handleSubmit: submitForm, values, setFieldValue, errors, touched, submitCount }) => (
                 <SafeAreaView style={styles.safe}>
                     <View style={[styles.scroll, styles.backRow]}>
                         <TouchableOpacity
@@ -138,7 +165,7 @@ export default function RegistrationScreen() {
                             </TouchableOpacity>
                             {submitCount > 0 && errors.agreed ? <Text style={styles.errorText}>{errors.agreed}</Text> : null}
 
-                            <TouchableOpacity style={styles.continueBtn} onPress={() => handleSubmit()} activeOpacity={0.85}>
+                            <TouchableOpacity style={styles.continueBtn} onPress={() => submitForm()} activeOpacity={0.85}>
                                 <Text style={styles.continueBtnText}>CONTINUER →</Text>
                             </TouchableOpacity>
                         </View>

@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Keyboard } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Keyboard, Text } from 'react-native';
 import Toast, { ToastConfigParams } from 'react-native-toast-message';
 
-import { ToastErrorIcon, ToastSuccessIcon } from '@/assets/svg';
-import { Text } from '@/shared';
-import { Colors } from '@/theme/colors';
+import { ToastErrorIcon, ToastSuccessIcon } from '../assets/svg';
+import { Colors } from '../theme/colors';
 
 const visibilityTime = 2500; // ~ 2.5 sec
 
@@ -14,9 +13,6 @@ const toastConfig = {
             <ToastSuccessIcon />
             <Text
                 style={styles.titleStyle}
-                size={14}
-                color={Colors.text.white}
-                fontWeight="600"
             >
                 {text1}
             </Text>
@@ -29,9 +25,6 @@ const toastConfig = {
             </TouchableOpacity>
             <Text
                 style={styles.titleStyle}
-                size={14}
-                color={Colors.text.white}
-                fontWeight="600"
             >
                 {text1}
             </Text>
@@ -72,7 +65,7 @@ export default toastConfig;
 
 const styles = StyleSheet.create({
     titleStyle: {
-        color: Colors.text.white,
+        color: Colors.text.primary,
         marginLeft: 10,
         fontSize: 10,
         flex: 1,

@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios';
 
 import { AvailabilityResponse } from '../types/availability';
-import { BookingRequest, BookingResponse } from '../types/booking';
+import { BookingRequest, BookingResponse, MyReservation } from '../types/booking';
+import { LoginRequest, LoginResponse } from '../types/user';
 import { City } from '@/types/core';
 import { Instructor } from '../types/instructor';
 
@@ -18,6 +19,9 @@ const API_END_POINT = {
     GET_INSTRUCTOR_PRICING: 'instructors/{0}/pricing',
     GET_INSTRUCTOR_BOOKED_SLOTS: 'instructors/{0}/booked',
     BOOK: 'bookings',
+    MY_RESERVATIONS: 'my-reservations',
+    CANCEL_RESERVATION: 'my-reservation/cancel/{0}',
+    LOGIN: 'user/login',
 };
 
 type API_METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -49,7 +53,26 @@ export const getInstructorBookedSlots = (instructorId: string): Promise<{[key: s
 export const bookLesson = (
     bookingRequest: BookingRequest
 ): Promise<BookingResponse> => {
-    return authorizedRequest(API_END_POINT.BOOK, 'POST', bookingRequest);
+    return baseRequest(API_END_POINT.BOOK, 'POST', bookingRequest);
+};
+
+export const getMyReservations = (): Promise<MyReservation[]> => {
+    return authorizedRequest(API_END_POINT.MY_RESERVATIONS);
+};
+
+export const cancelReservation = (
+    reservationId: string
+): Promise<MyReservation> => {
+    return authorizedRequest(
+        COMMON.stringFormat(API_END_POINT.CANCEL_RESERVATION, reservationId),
+        'POST'
+    );
+};
+
+export const login = (
+    loginRequest: LoginRequest
+): Promise<LoginResponse> => {
+    return baseRequest(API_END_POINT.LOGIN, 'POST', loginRequest);
 };
 
 const baseRequest = (

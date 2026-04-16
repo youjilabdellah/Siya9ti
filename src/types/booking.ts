@@ -21,4 +21,14 @@ export interface BookingResponse {
   date: string; // ISO date string
   selectedSlots: string[];
   totalPrice: number;
+  token?: string; // Optional token for authentication or future reference
+}
+
+export interface MyReservation {
+  id: string;
+  instructorId: string;
+  selectedSlots: string[];
+  date: string; // ISO date-time string
+  status: BookingStatus;
+  totalPrice: number;
 }

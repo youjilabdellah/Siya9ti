@@ -14,10 +14,12 @@ import {
 
 import InstructorReducer from './reducers/instructor';
 import ReservationsReducer from './reducers/reservations';
+import UserReducer from './reducers/user';
 
 const rootReducer = combineReducers({
     instructor: InstructorReducer,
     reservations: ReservationsReducer,
+    user: UserReducer,
 }) as any;
 
 const ignoreLoadingTransform = createTransform(
