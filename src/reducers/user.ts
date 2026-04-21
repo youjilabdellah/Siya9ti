@@ -10,7 +10,15 @@ import { UserInfo } from '../types/user';
 
 import * as api from '../services/api';
 import { logoutAction, setAuthToken } from '../utils/auth';
-import { LoginRequest, LoginResponse, LogoutResponse } from '../types/user';
+import {
+  LoginRequest,
+  LoginResponse,
+  LogoutResponse,
+  ResetPasswordRequest,
+  ResetPasswordResponse,
+  ConfirmPasswordResetRequest,
+  ConfirmPasswordResetResponse,
+} from '../types/user';
 
 export interface UserState {
   loading: boolean;
@@ -43,6 +51,20 @@ export const logoutUser = createAsyncThunk(
     }
 
     return response;
+  }
+);
+
+export const requestPasswordReset = createAsyncThunk(
+  'user/requestPasswordReset',
+  async (options: ResetPasswordRequest): Promise<ResetPasswordResponse> => {
+    return await api.resetPassword(options);
+  }
+);
+
+export const confirmPasswordReset = createAsyncThunk(
+  'user/confirmPasswordReset',
+  async (options: ConfirmPasswordResetRequest): Promise<ConfirmPasswordResetResponse> => {
+    return await api.confirmPasswordReset(options);
   }
 );
 
@@ -85,6 +107,32 @@ const userSlice = createSlice({
       state.loading = false;
       state.userInfo = null;
       state.error = null;
+    });
+
+    builder.addCase(requestPasswordReset.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(requestPasswordReset.fulfilled, (state) => {
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(requestPasswordReset.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string || action.error.message || 'Failed to request password reset';
+    });
+
+    builder.addCase(confirmPasswordReset.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(confirmPasswordReset.fulfilled, (state) => {
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(confirmPasswordReset.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string || action.error.message || 'Failed to confirm password reset';
     });
 
     builder.addCase(PURGE, () => initialState);

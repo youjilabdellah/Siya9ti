@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
 import useAppDispatch from '../../hooks/useAppDispatch';
-import { fetchUserInfo, UserSelectors } from '../../reducers/user';
+import { fetchUserInfo } from '../../reducers/user';
 import { errorToast } from '../../utils/customToast';
 
 import { FloatingInput, SectionHeader } from '../registration/components';
@@ -117,7 +117,10 @@ export default function LoginScreen() {
                                 <Text style={styles.errorText}>{errors.password}</Text>
                             ) : null}
 
-                            <TouchableOpacity activeOpacity={0.7}>
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={() => (navigation.navigate as any)('ResetPassword')}
+                            >
                                 <Text style={styles.forgotPassword}>Mot de passe oublié ?</Text>
                             </TouchableOpacity>
                         </View>

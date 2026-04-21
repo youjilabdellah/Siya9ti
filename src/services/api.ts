@@ -2,7 +2,15 @@ import axios, { AxiosError } from 'axios';
 
 import { AvailabilityResponse } from '../types/availability';
 import { BookingRequest, BookingResponse, MyReservation } from '../types/booking';
-import { LoginRequest, LoginResponse, LogoutResponse } from '../types/user';
+import {
+    LoginRequest,
+    LoginResponse,
+    LogoutResponse,
+    ResetPasswordRequest,
+    ResetPasswordResponse,
+    ConfirmPasswordResetRequest,
+    ConfirmPasswordResetResponse,
+} from '../types/user';
 import { City } from '@/types/core';
 import { Instructor } from '../types/instructor';
 
@@ -23,6 +31,8 @@ const API_END_POINT = {
     CANCEL_RESERVATION: 'my-reservation/cancel/{0}',
     LOGIN: 'user/login',
     LOGOUT: 'user/logout',
+    RESET_PASSWORD: 'user/reset-password',
+    CONFIRM_PASSWORD_RESET: 'user/confirm-password-reset',
 };
 
 type API_METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -78,6 +88,18 @@ export const login = (
 
 export const logout = (): Promise<LogoutResponse> => {
     return authorizedRequest(API_END_POINT.LOGOUT, 'POST');
+};
+
+export const resetPassword = (
+    resetPasswordRequest: ResetPasswordRequest
+): Promise<ResetPasswordResponse> => {
+    return baseRequest(API_END_POINT.RESET_PASSWORD, 'POST', resetPasswordRequest);
+};
+
+export const confirmPasswordReset = (
+    confirmRequest: ConfirmPasswordResetRequest
+): Promise<ConfirmPasswordResetResponse> => {
+    return baseRequest(API_END_POINT.CONFIRM_PASSWORD_RESET, 'POST', confirmRequest);
 };
 
 const baseRequest = (

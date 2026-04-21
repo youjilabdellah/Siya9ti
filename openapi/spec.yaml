@@ -65,6 +65,64 @@ paths:
         '404':
           description: User not found
 
+  /user/reset-password:
+    post:
+      summary: Request password reset
+      description: Send a password reset link to the provided email.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+      responses:
+        '200':
+          description: Password reset link sent
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: Reset password email sent successfully
+              example:
+                message: Reset password email sent successfully
+        '404':
+          description: User not found
+
+  /user/confirm-password-reset:
+    post:
+      summary: Confirm password reset
+      description: Confirm a password reset request with a reset token and new password.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmPasswordResetRequest'
+      responses:
+        '200':
+          description: Password reset successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: Password reset successfully
+              example:
+                message: Password reset successfully
+        '400':
+          description: Invalid or expired reset token
+        '404':
+          description: User not found
+
   /user/logout:
     post:
       summary: User logout
@@ -554,3 +612,28 @@ components:
           type: string
           description: Authentication token for use in Authorization header
           example: "abc1234token"
+
+    ResetPasswordRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          example: ahmed@example.com
+
+    ConfirmPasswordResetRequest:
+      type: object
+      required:
+        - resetToken
+        - newPassword
+      properties:
+        resetToken:
+          type: string
+          description: The reset token received via email
+          example: "abc123def456"
+        newPassword:
+          type: string
+          description: The new password (minimum 8 characters)
+          example: "newPassword123"

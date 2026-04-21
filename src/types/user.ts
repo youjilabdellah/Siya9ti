@@ -21,3 +21,20 @@ export type LoginResponse = {
 export type LogoutResponse = {
     message: string;
 };
+
+export type ResetPasswordRequest = {
+    email: string;
+};
+
+export type ResetPasswordResponse = {
+    message: string;
+};
+
+export type ConfirmPasswordResetRequest = {
+    resetToken: string;
+    newPassword: string;
+};
+
+export type ConfirmPasswordResetResponse = {
+    message: string;
+};
