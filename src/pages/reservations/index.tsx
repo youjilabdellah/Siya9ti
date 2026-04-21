@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, FlatList, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { cancelReservation, ReservationsSelectors, fetchMyReservations } from '../../reducers/reservations';
+import { UserSelectors } from '../../reducers/user';
 import { BookingResponse, MyReservation } from '../../types/booking';
 import { successToast, errorToast } from '../../utils/customToast';
 import { styles } from './styles';
-import { useFocusEffect } from '@react-navigation/native';
 
 const toDate = (value: string): Date | null => {
   const parsed = new Date(value);
@@ -52,11 +53,17 @@ const statusMeta = (status: BookingResponse['status']) => {
 export default function ReservationsScreen() {
   const dispatch = useAppDispatch();
   const { myReservations } = ReservationsSelectors();
+  const { userInfo } = UserSelectors();
+  const navigation = useNavigation();
 
   useFocusEffect(
     React.useCallback(() => {
+    if (!userInfo) {
+      navigation.navigate('Login' as never);
+      return;
+    }
       dispatch(fetchMyReservations());
-    }, [dispatch])
+    }, [dispatch, userInfo, navigation])
   );
 
   const sortedBookings = React.useMemo(() => {

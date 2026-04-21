@@ -9,8 +9,8 @@ import { RootState } from '@/store';
 import { UserInfo } from '../types/user';
 
 import * as api from '../services/api';
-import { setAuthToken } from '../utils/auth';
-import { LoginRequest, LoginResponse } from '../types/user';
+import { logoutAction, setAuthToken } from '../utils/auth';
+import { LoginRequest, LoginResponse, LogoutResponse } from '../types/user';
 
 export interface UserState {
   loading: boolean;
@@ -31,6 +31,21 @@ export const fetchUserInfo = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  'user/logoutUser',
+  async (): Promise<LogoutResponse> => {
+    let response: LogoutResponse = { message: 'Logged out successfully' };
+
+    try {
+      response = await api.logout();
+    } finally {
+      await logoutAction();
+    }
+
+    return response;
+  }
+);
+
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
@@ -40,10 +55,6 @@ const userSlice = createSlice({
     },
     setUserInfo(state, action) {
       state.userInfo = action.payload;
-    },
-    logoutUser(state) {
-      state.userInfo = null;
-      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -61,11 +72,26 @@ const userSlice = createSlice({
       state.error = action.payload as string || action.error.message || 'Failed to fetch user info';
     });
 
+    builder.addCase(logoutUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      state.loading = false;
+      state.userInfo = null;
+      state.error = null;
+    });
+    builder.addCase(logoutUser.rejected, (state) => {
+      state.loading = false;
+      state.userInfo = null;
+      state.error = null;
+    });
+
     builder.addCase(PURGE, () => initialState);
   },
 });
 
-export const { clearUserError, setUserInfo, logoutUser } = userSlice.actions;
+export const { clearUserError, setUserInfo } = userSlice.actions;
 
 export default userSlice.reducer;
 

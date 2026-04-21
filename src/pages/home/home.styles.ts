@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform, StatusBar } from 'react-native';
 import { Colors } from '../../theme/colors';
 
 export const styles = StyleSheet.create({
@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background.screen,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
 
   header: {
@@ -52,7 +53,9 @@ export const styles = StyleSheet.create({
 
   card: {
     backgroundColor: Colors.background.card,
-    margin: 20,
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginHorizontal: 20,
     borderRadius: 16,
     padding: 20,
     borderWidth: 1,

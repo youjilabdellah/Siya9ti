@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 
 import { AvailabilityResponse } from '../types/availability';
 import { BookingRequest, BookingResponse, MyReservation } from '../types/booking';
-import { LoginRequest, LoginResponse } from '../types/user';
+import { LoginRequest, LoginResponse, LogoutResponse } from '../types/user';
 import { City } from '@/types/core';
 import { Instructor } from '../types/instructor';
 
@@ -22,6 +22,7 @@ const API_END_POINT = {
     MY_RESERVATIONS: 'my-reservations',
     CANCEL_RESERVATION: 'my-reservation/cancel/{0}',
     LOGIN: 'user/login',
+    LOGOUT: 'user/logout',
 };
 
 type API_METHOD = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -73,6 +74,10 @@ export const login = (
     loginRequest: LoginRequest
 ): Promise<LoginResponse> => {
     return baseRequest(API_END_POINT.LOGIN, 'POST', loginRequest);
+};
+
+export const logout = (): Promise<LogoutResponse> => {
+    return authorizedRequest(API_END_POINT.LOGOUT, 'POST');
 };
 
 const baseRequest = (

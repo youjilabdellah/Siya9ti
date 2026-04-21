@@ -18,3 +18,6 @@ export type LoginResponse = {
     token: string;
 };
 
+export type LogoutResponse = {
+    message: string;
+};

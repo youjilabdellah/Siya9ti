@@ -16,6 +16,7 @@ import RegistrationScreen from './pages/registration';
 import ReservationsScreen from './pages/reservations';
 import ReservationConfirmationScreen from './pages/reservationConfirmation';
 import ProfileScreen from './pages/profile';
+import LoginScreen from './pages/login';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,6 +48,7 @@ function AppContent(): React.JSX.Element {
           <Stack.Screen name="Booking" component={BookingCalendarScreen}/>
           <Stack.Screen name="Registration" component={RegistrationScreen}/>
           <Stack.Screen name="ReservationConfirmation" component={ReservationConfirmationScreen}/>
+          <Stack.Screen name="Login" component={LoginScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
       <LoadingOverlay visible={loading} />

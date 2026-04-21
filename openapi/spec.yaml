@@ -65,6 +65,30 @@ paths:
         '404':
           description: User not found
 
+  /user/logout:
+    post:
+      summary: User logout
+      description: Invalidate the authenticated user's session token.
+      security:
+        - AuthToken: []
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: Logged out successfully
+              example:
+                message: Logged out successfully
+        '401':
+          description: Missing or invalid authorization token
+
   /instructors:
     get:
       summary: Get instructors by city

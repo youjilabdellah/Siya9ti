@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import {
   Alert,
   Keyboard,
+  Platform,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -231,6 +233,7 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: '#F7F9FC',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   container: {
     flex: 1,
