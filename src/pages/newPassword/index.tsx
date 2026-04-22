@@ -46,10 +46,14 @@ const validate = (values: NewPasswordFormData) => {
 
 export default function NewPasswordScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
   const dispatch = useAppDispatch();
+  
+  const routeParams = route.params as { token?: string } | undefined;
+  const tokenFromLink = routeParams?.token || '';
 
   const initialValues: NewPasswordFormData = {
-    resetToken: '',
+    resetToken: tokenFromLink,
     newPassword: '',
     confirmPassword: '',
   };

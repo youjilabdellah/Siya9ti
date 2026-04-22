@@ -119,8 +119,12 @@ export default function RegistrationScreen() {
                             <Text style={styles.backBtnText}>← Retour</Text>
                         </TouchableOpacity>
                     </View>
-                    <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-                    <StepIndicator />
+                    {   params?.selectedSlots &&
+                        <>
+                            <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+                            <StepIndicator />
+                        </>
+                     }
 
                     <KeyboardAwareScrollView
                         contentContainerStyle={styles.scroll}

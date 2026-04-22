@@ -77,7 +77,7 @@ export default function HomeScreen() {
           }}
           disabled={!city}
         >
-          <Text style={styles.buttonText}>SEARCH NOW</Text>
+          <Text style={styles.buttonText}>RECHERCHER</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

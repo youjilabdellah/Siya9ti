@@ -36,6 +36,60 @@ paths:
                   value: '2'
                 - label: Marrakech
                   value: '3'
+                - label: Fès
+                  value: '4'
+                - label: Tanger
+                  value: '5'
+                - label: Agadir
+                  value: '6'
+                - label: Meknès
+                  value: '7'
+                - label: Oujda
+                  value: '8'
+                - label: Kenitra
+                  value: '9'
+                - label: Tétouan
+                  value: '10'
+                - label: Safi
+                  value: '11'
+                - label: El Jadida
+                  value: '12'
+                - label: Béni Mellal
+                  value: '13'
+                - label: Nador
+                  value: '14'
+                - label: Settat
+                  value: '15'
+                - label: Khouribga
+                  value: '16'
+                - label: Taza
+                  value: '17'
+                - label: Larache
+                  value: '18'
+                - label: Ksar El Kébir
+                  value: '19'
+                - label: Khémisset
+                  value: '20'
+                - label: Guelmim
+                  value: '21'
+                - label: Berrechid
+                  value: '22'
+                - label: Mohammedia
+                  value: '23'
+                - label: Témara
+                  value: '24'
+                - label: Salé
+                  value: '25'
+                - label: Dakhla
+                  value: '26'
+                - label: Laâyoune
+                  value: '27'
+                - label: Tiznit
+                  value: '28'
+                - label: Ouarzazate
+                  value: '29'
+                - label: Errachidia
+                  value: '30'
 
   /user/login:
     post:

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Keyboard,
@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Svg, { Path } from 'react-native-svg';
 
@@ -41,6 +42,13 @@ export default function ProfileScreen() {
   const dispatch = useAppDispatch();
   const { userInfo } = UserSelectors();
   const [isEditing, setIsEditing] = useState(false);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if(!userInfo) {
+      (navigation.navigate as any)('Login');
+    }
+  }, [userInfo, navigation]);
 
   const initialValues = {
     firstName: userInfo?.firstName || '',

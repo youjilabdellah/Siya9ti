@@ -56,7 +56,9 @@ export default function LoginScreen() {
     const handleFormSubmit = (values: LoginFormData) => {
         dispatch(fetchUserInfo({ email: values.email, password: values.password }))
             .unwrap()
-            .catch(() => {
+            .then(() => {
+              navigation.goBack();
+            }).catch(() => {
                 errorToast('Identifiants incorrects. Veuillez réessayer.');
             });
     };
@@ -77,10 +79,10 @@ export default function LoginScreen() {
                         {/* Back button */}
                         <TouchableOpacity
                             style={styles.backBtn}
-                            onPress={() => navigation.goBack()}
+                            onPress={() => (navigation.navigate as any)('Home')}
                             activeOpacity={0.7}
                         >
-                            <Text style={styles.backBtnText}>← Retour</Text>
+                            <Text style={styles.backBtnText}>← Acceuil</Text>
                         </TouchableOpacity>
 
                         {/* Logo / Brand */}

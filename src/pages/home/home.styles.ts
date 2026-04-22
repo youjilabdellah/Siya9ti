@@ -130,6 +130,7 @@ export const styles = StyleSheet.create({
   dropdownContainer: {
     borderRadius: 30,
     overflow: 'hidden',
+    paddingBottom: 8,
   },
   inputSearchStyle: {
     height: 40,

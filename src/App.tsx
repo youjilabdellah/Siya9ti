@@ -1,7 +1,8 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, LinkingOptions } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -19,9 +20,26 @@ import ProfileScreen from './pages/profile';
 import LoginScreen from './pages/login';
 import ResetPasswordScreen from './pages/resetPassword/index';
 import NewPasswordScreen from './pages/newPassword/index';
+import toastConfig from './utils/customToast';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const linking: LinkingOptions<any> = {
+  prefixes: ['siya9ati://', 'https://17e3-41-249-136-184.ngrok-free.app/'],
+  config: {
+    screens: {
+      Home: 'home',
+      Instructors: 'instructors',
+      Booking: 'booking',
+      Registration: 'registration',
+      ReservationConfirmation: 'reservation-confirmation/:bookingId',
+      Login: 'login',
+      ResetPassword: 'reset-password',
+      NewPassword: 'reset-password/:token',
+    },
+  },
+};
 
 const renderBottomTabBar = (props: BottomTabBarProps) => <BottomTabBar {...props} />;
 
@@ -43,7 +61,7 @@ function AppContent(): React.JSX.Element {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={TabNavigator}/>
           <Stack.Screen name="Instructors" component={InstructorsScreen}/>
@@ -65,6 +83,7 @@ function App(): React.JSX.Element {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <AppContent />
+        <Toast config={toastConfig} />
       </PersistGate>
     </Provider>
   );
