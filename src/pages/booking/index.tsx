@@ -12,6 +12,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { getInstructorBookedSlots, InstructorSelectors } from '../../reducers/instructor';
+import { createBooking } from '../../reducers/reservations';
+import { UserSelectors } from '../../reducers/user';
+import { errorToast, successToast } from '../../utils/customToast';
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 // type ViewMode = 'Jour' | 'Semaine' | 'Mois';
@@ -319,6 +322,7 @@ const BookingCalendar: React.FC = () => {
   const params = route.params as { instructorId: string } | undefined;
   const instructorId = params?.instructorId;
   const { instructors } = InstructorSelectors();
+  const { userInfo } = UserSelectors();
 
   const today = new Date();
   const isToday = isSameDay(currentDate, today);
@@ -370,7 +374,33 @@ const BookingCalendar: React.FC = () => {
         `Vous avez sélectionné ${selectedSlots.size} créneau(s). Continuer la réservation avec Jay ?`,
         [
           { text: 'Annuler', style: 'cancel' },
-          { text: 'Confirmer', onPress: () => navigation.navigate('Registration', { instructorId, selectedSlots: Array.from(selectedSlots), currentDate }) },
+          { text: 'Confirmer', onPress: () => {
+            if(!userInfo) {
+              navigation.navigate('Registration', { instructorId, selectedSlots: Array.from(selectedSlots), currentDate });
+              return;
+            }
+            dispatch(createBooking(
+              {
+                instructorId: instructorId || '',
+                selectedSlots: Array.from(selectedSlots) || [],
+                date: currentDate.toISOString().split('T')[0] || '',
+                user: {
+                    firstName: userInfo.firstName,
+                    lastName: userInfo.lastName,
+                    email: userInfo.email,
+                    phone: userInfo.phone,
+                    agreed: true,
+                },
+            }
+            )).unwrap()
+              .then(() => {
+                successToast('Votre réservation a été créée avec succès.');
+                navigation.navigate('ReservationConfirmation', { instructorId, selectedSlots: Array.from(selectedSlots), currentDate });
+              })
+              .catch(() => {
+                errorToast('Une erreur est survenue lors de la création de la réservation. Veuillez réessayer.');
+              });
+          }},
         ],
       );
     }

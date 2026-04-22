@@ -65,7 +65,7 @@ export default toastConfig;
 
 const styles = StyleSheet.create({
     titleStyle: {
-        color: Colors.text.primary,
+        color: Colors.text.white,
         marginLeft: 10,
         fontSize: 10,
         flex: 1,
