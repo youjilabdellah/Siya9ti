@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { Provider, useSelector } from 'react-redux';
@@ -20,6 +21,7 @@ import ProfileScreen from './pages/profile';
 import LoginScreen from './pages/login';
 import ResetPasswordScreen from './pages/resetPassword/index';
 import NewPasswordScreen from './pages/newPassword/index';
+import { initializeNotifications } from './services/notifications';
 import toastConfig from './utils/customToast';
 
 const Stack = createNativeStackNavigator();
@@ -79,6 +81,12 @@ function AppContent(): React.JSX.Element {
 }
 
 function App(): React.JSX.Element {
+  useEffect(() => {
+    initializeNotifications().catch(error => {
+      console.warn('Failed to initialize notifications:', error);
+    });
+  }, []);
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
