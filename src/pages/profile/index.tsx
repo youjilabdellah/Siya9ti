@@ -3,7 +3,6 @@ import {
   Alert,
   Keyboard,
   Platform,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -12,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import Svg, { Path } from 'react-native-svg';
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: '#F7F9FC',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+
   },
   container: {
     flex: 1,

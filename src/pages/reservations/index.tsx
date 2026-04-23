@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Alert, FlatList, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import useAppDispatch from '../../hooks/useAppDispatch';

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
   FlatList,
   TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { getInstructors, InstructorSelectors } from '../../reducers/instructor';
 import InstructorCard from './components/instractorCard';

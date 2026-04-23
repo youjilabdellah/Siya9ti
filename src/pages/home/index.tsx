@@ -3,9 +3,9 @@ import {
   View,
   Text,
   ImageBackground,
-  SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { getCities, InstructorSelectors } from '../../reducers/instructor';

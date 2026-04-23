@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors } from '../../theme/colors';
 
 const YELLOW = '#F5C518';
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: '#FAFAFA',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+
   },
 
   // ── Step Indicator ──
