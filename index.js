@@ -4,10 +4,18 @@
 
 import {AppRegistry} from 'react-native';
 import notifee from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
 import App from './src/App';
 import {name as appName} from './app.json';
-import {onNotifeeBackgroundEvent} from './src/services/notifications';
+import {
+	handleIncomingRemoteMessage,
+	onNotifeeBackgroundEvent,
+} from './src/services/notifications';
 
 notifee.onBackgroundEvent(onNotifeeBackgroundEvent);
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+	await handleIncomingRemoteMessage(remoteMessage);
+});
 
 AppRegistry.registerComponent(appName, () => App);
