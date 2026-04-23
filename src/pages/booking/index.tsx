@@ -108,7 +108,7 @@ interface DayViewProps {
 const DayView: React.FC<DayViewProps> = ({ bookedSlots, selectedSlots, onToggleSlot }) => (
   <ScrollView style={styles.dayContainer} showsVerticalScrollIndicator={false}>
     {TIME_SLOTS.map((slot) => {
-      const key = `${slot.time}_day`;
+      const key = `${slot.time}`;
       const isBooked = bookedSlots.has(`${slot.time}_1`);
       const isSelected = selectedSlots.has(key);
 

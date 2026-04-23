@@ -318,23 +318,23 @@ paths:
                 - id: book_901
                   instructorId: inst_101
                   selectedSlots:
-                    - 11:00_day
-                    - 12:00_day
+                    - 11:00
+                    - 12:00
                   date: '2026-04-15T10:07:03.708Z'
                   status: confirmed
                   totalPrice: 300
                 - id: book_902
                   instructorId: inst_204
                   selectedSlots:
-                    - 09:00_day
-                    - 10:00_day
+                    - 09:00
+                    - 10:00
                   date: '2026-05-02T08:30:00.000Z'
                   status: pending
                   totalPrice: 280
                 - id: book_903
                   instructorId: inst_309
                   selectedSlots:
-                    - 15:00_day
+                    - 15:00
                   date: '2026-03-21T14:15:00.000Z'
                   status: cancelled
                   totalPrice: 140
@@ -365,8 +365,8 @@ paths:
                 id: book_902
                 instructorId: inst_204
                 selectedSlots:
-                  - 09:00_day
-                  - 10:00_day
+                  - 09:00
+                  - 10:00
                 date: '2026-05-02T08:30:00.000Z'
                 status: cancelled
                 totalPrice: 280
@@ -612,8 +612,8 @@ components:
           items:
             type: string
           example:
-            - 11:00_day
-            - 12:00_day
+            - 11:00
+            - 12:00
         date:
           type: string
           format: date-time
