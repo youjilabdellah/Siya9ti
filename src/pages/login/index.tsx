@@ -13,6 +13,7 @@ import { Formik } from 'formik';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { fetchUserInfo } from '../../reducers/user';
 import { errorToast } from '../../utils/customToast';
+import { getFcmToken } from '../../services/notifications';
 
 import { FloatingInput, SectionHeader } from '../registration/components';
 import { styles } from './styles';
@@ -56,8 +57,10 @@ export default function LoginScreen() {
     const handleFormSubmit = (values: LoginFormData) => {
         dispatch(fetchUserInfo({ email: values.email, password: values.password }))
             .unwrap()
-            .then(() => {
-              navigation.goBack();
+            .then(async () => {
+                const fcmToken = await getFcmToken();
+                console.log('FCM Token:', fcmToken);
+                navigation.goBack();
             }).catch(() => {
                 errorToast('Identifiants incorrects. Veuillez réessayer.');
             });
