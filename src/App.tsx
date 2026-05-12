@@ -17,6 +17,7 @@ import InstructorsScreen from './pages/instractors';
 import RegistrationScreen from './pages/registration';
 import ReservationsScreen from './pages/reservations';
 import ReservationConfirmationScreen from './pages/reservationConfirmation';
+import InstructorProfileScreen from './pages/instructorProfile';
 import ProfileScreen from './pages/profile';
 import LoginScreen from './pages/login';
 import ResetPasswordScreen from './pages/resetPassword/index';
@@ -33,6 +34,7 @@ const linking: LinkingOptions<any> = {
     screens: {
       Home: 'home',
       Instructors: 'instructors',
+      InstructorProfile: 'instructors/profile',
       Booking: 'booking',
       Registration: 'registration',
       ReservationConfirmation: 'reservation-confirmation/:bookingId',
@@ -67,6 +69,7 @@ function AppContent(): React.JSX.Element {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={TabNavigator}/>
           <Stack.Screen name="Instructors" component={InstructorsScreen}/>
+          <Stack.Screen name="InstructorProfile" component={InstructorProfileScreen}/>
           <Stack.Screen name="Booking" component={BookingCalendarScreen}/>
           <Stack.Screen name="Registration" component={RegistrationScreen}/>
           <Stack.Screen name="ReservationConfirmation" component={ReservationConfirmationScreen}/>

@@ -32,6 +32,10 @@ export default function InstructorsScreen(): React.JSX.Element {
     (navigation as any).navigate('Booking', { instructorId });
   };
 
+  const onViewInstructorProfile = (instructorId: string) => {
+    (navigation as any).navigate('InstructorProfile', { instructorId });
+  };
+
   const renderInstructor = ({ item }: { item: any }) => (
     <InstructorCard
       name={item.name}
@@ -40,9 +44,7 @@ export default function InstructorsScreen(): React.JSX.Element {
         { icon: '💰', label: `${item.pricePerHour} ${item.currency} / h` },
         // Ajouter plus de badges si nécessaire
       ]}
-      onViewProfile={() => {
-        // Gérer l'action de voir le profil
-      }}
+      onViewProfile={() => onViewInstructorProfile(item.id)}
       onBookOnline={() => onBookInstructor(item.id)}
     />
   );

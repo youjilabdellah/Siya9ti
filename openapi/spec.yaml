@@ -218,6 +218,45 @@ paths:
               schema:
                 $ref: '#/components/schemas/Instructors'
 
+  /instructors/{id}:
+    get:
+      summary: Get instructor details by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Instructor identifier.
+      responses:
+        '200':
+          description: Detailed instructor profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstructorDetails'
+              example:
+                id: inst_101
+                name: Ahmed Benali
+                city: Rabat
+                vehicleType: manual
+                rating: 4.7
+                currency: MAD
+                pricePerHour: 150
+                packages:
+                  - hours: 10
+                    price: 1400
+                  - hours: 20
+                    price: 2600
+                location:
+                  latitude: 34.020882
+                  longitude: -6.84165
+                  address: Avenue Mohammed V, Rabat
+                carServiceType: both
+                imageUrl: https://randomuser.me/api/portraits/men/32.jpg
+        '404':
+          description: Instructor not found
+
   /instructors/{id}/availability:
     get:
       summary: Get instructor availability
@@ -384,6 +423,31 @@ components:
       description: Use the Authorization header in the format `Token <token>`.
 
   schemas:
+    Location:
+      type: object
+      required:
+        - latitude
+        - longitude
+        - address
+      properties:
+        latitude:
+          type: number
+          format: double
+          example: 34.020882
+        longitude:
+          type: number
+          format: double
+          example: -6.84165
+        address:
+          type: string
+          example: Avenue Mohammed V, Rabat
+
+    CarServiceType:
+      type: string
+      description: Indicates whether the instructor provides lessons with their own car, the student's car, or both.
+      enum: [instructor_car, student_car, both]
+      example: both
+
     Instructors:
       type: array
       items:
@@ -464,6 +528,63 @@ components:
             - hours: 25
               price: 4000
 
+    InstructorDetails:
+      type: object
+      required:
+        - id
+        - name
+        - city
+        - vehicleType
+        - rating
+        - currency
+        - pricePerHour
+        - packages
+        - location
+        - carServiceType
+        - imageUrl
+      properties:
+        id:
+          type: string
+          example: inst_101
+        name:
+          type: string
+          example: Ahmed Benali
+        city:
+          type: string
+          example: Rabat
+        vehicleType:
+          type: string
+          enum: [manual, automatic]
+          example: manual
+        rating:
+          type: number
+          format: float
+          example: 4.7
+        currency:
+          type: string
+          example: MAD
+        pricePerHour:
+          type: number
+          example: 150
+        packages:
+          type: array
+          items:
+            type: object
+            properties:
+              hours:
+                type: integer
+                example: 10
+              price:
+                type: number
+                example: 1400
+        location:
+          $ref: '#/components/schemas/Location'
+        carServiceType:
+          $ref: '#/components/schemas/CarServiceType'
+        imageUrl:
+          type: string
+          format: uri
+          example: https://randomuser.me/api/portraits/men/32.jpg
     Availability:
       type: object
       properties:

@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Platform} from 'react-native';
 import notifee from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
 import App from './src/App';
@@ -12,10 +12,12 @@ import {
 	onNotifeeBackgroundEvent,
 } from './src/services/notifications';
 
+
 notifee.onBackgroundEvent(onNotifeeBackgroundEvent);
 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-	await handleIncomingRemoteMessage(remoteMessage);
-});
-
+if (Platform.OS === 'android') {
+	messaging().setBackgroundMessageHandler(async remoteMessage => {
+		await handleIncomingRemoteMessage(remoteMessage);
+	});
+}
 AppRegistry.registerComponent(appName, () => App);

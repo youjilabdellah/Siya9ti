@@ -15,12 +15,14 @@ export interface InstructorState {
     loading: boolean;
     cities: City[];
     instructors: Instructor[];
+    instructorDetails: Instructor | null;
 }
 
 const initialState: InstructorState = {
     loading: false,
     cities: [],
     instructors: [],
+    instructorDetails: null,
 };
 
 export const getCities = createAsyncThunk(
@@ -54,6 +56,19 @@ export const getInstructorBookedSlots = createAsyncThunk(
     }, { rejectWithValue }) => {
         try {
             return await api.getInstructorBookedSlots(options.instructorId);
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
+
+export const getInstructorDetails = createAsyncThunk(
+    'instructor/getInstructorDetails',
+    async (options: {
+        instructorId: string;
+    }, { rejectWithValue }) => {
+        try {
+            return await api.getInstructorDetails(options.instructorId);
         } catch (err) {
             return rejectWithValue(err);
         }
@@ -104,6 +119,18 @@ const instructorSlice = createSlice({
         builder.addCase(getInstructorBookedSlots.rejected, (state) => {
             state.loading = false;
         });
+        builder.addCase(getInstructorDetails.pending, (state) => {
+            state.loading = true;
+            state.instructorDetails = null;
+        });
+        builder.addCase(getInstructorDetails.fulfilled, (state, action) => {
+            state.loading = false;
+            state.instructorDetails = action.payload;
+        });
+        builder.addCase(getInstructorDetails.rejected, (state) => {
+            state.loading = false;
+            state.instructorDetails = null;
+        });
         // when purging reset back to the initial state
         builder.addCase(PURGE, () => initialState);
     },
@@ -115,6 +142,7 @@ interface InstructorSelectorsType {
     loading: boolean | undefined;
     cities: City[] | undefined;
     instructors: Instructor[] | undefined;
+    instructorDetails: Instructor | null | undefined;
 }
 
 export const InstructorSelectors = (): InstructorSelectorsType => {
@@ -124,9 +152,12 @@ export const InstructorSelectors = (): InstructorSelectorsType => {
 
     const instructors = useSelector((state: RootState) => state.instructor?.instructors);
 
+    const instructorDetails = useSelector((state: RootState) => state.instructor?.instructorDetails);
+
     return {
         loading,
         cities,
         instructors,
+        instructorDetails,
     };
 };

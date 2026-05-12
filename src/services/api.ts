@@ -23,6 +23,7 @@ import { COMMON } from '../utils/common';
 const API_END_POINT = {
     GET_CITIES: 'cities',
     GET_INSTRUCTORS_BY_CITY: 'instructors?city={0}',
+    GET_INSTRUCTOR_DETAILS: 'instructors/{0}',
     GET_INSTRUCTOR_AVAILABILITY: 'instructors/{0}/availability',
     GET_INSTRUCTOR_PRICING: 'instructors/{0}/pricing',
     GET_INSTRUCTOR_BOOKED_SLOTS: 'instructors/{0}/booked',
@@ -52,6 +53,12 @@ export const getInstructorAvailability = (
 ): Promise<AvailabilityResponse> => {
     return baseRequest(
         COMMON.stringFormat(API_END_POINT.GET_INSTRUCTOR_AVAILABILITY, instructorId)
+    );
+};
+
+export const getInstructorDetails = (instructorId: string): Promise<Instructor> => {
+    return baseRequest(
+        COMMON.stringFormat(API_END_POINT.GET_INSTRUCTOR_DETAILS, instructorId)
     );
 };
 
