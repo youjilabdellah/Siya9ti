@@ -31,7 +31,7 @@ const BADGES: Badge[] = [
 export default function InstructorCard({
   name = 'Jean Dupont',
   title = 'Instructeur de conduite standard',
-  avatarUri = 'https://randomuser.me/api/portraits/men/32.jpg',
+  avatarUri = '',
   badges = BADGES,
   onViewProfile,
   onBookOnline,

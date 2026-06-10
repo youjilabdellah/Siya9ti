@@ -18,6 +18,7 @@ import { errorToast, successToast } from '../../utils/customToast';
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 // type ViewMode = 'Jour' | 'Semaine' | 'Mois';
+import { commonStyles } from '../../theme/common';
 
 interface TimeSlot {
   time: string;
@@ -440,13 +441,13 @@ const BookingCalendar: React.FC = () => {
             onPress={() => navigation.goBack()}
             activeOpacity={0.7}
           >
-            <Text style={styles.backBtnText}>← Retour</Text>
+            <Text style={commonStyles.backButtonText}>← Retour</Text>
           </TouchableOpacity>
         </View>
         {/* Banner */}
         <View style={styles.banner}>
           <Text style={styles.bannerTitle}>
-            Pour commencer le processus de réservation, veuillez sélectionner "Réserver avec Jay"
+            Pour commencer le processus de réservation, veuillez sélectionner les créneaux souhaités dans le calendrier ci-dessous.
           </Text>
           <View style={styles.legend}>
             <View style={styles.legendItem}>
@@ -509,9 +510,7 @@ const BookingCalendar: React.FC = () => {
 
           {/* Info */}
           <View style={styles.infoBox}>
-            <Text style={styles.infoText}>Durée de la leçon de conduite = 1 heure ou 2 heures</Text>
-            <Text style={styles.infoText}>Durée du forfait test de conduite = 2,5 heures</Text>
-            <Text style={styles.infoText}>Les heures de début sont par tranches de 15 minutes</Text>
+            <Text style={styles.infoText}>Les heures de début sont par tranches de 1 heure</Text>
           </View>
 
           {/* Book button */}

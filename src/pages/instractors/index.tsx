@@ -12,6 +12,8 @@ import InstructorCard from './components/instractorCard';
 import { styles } from './instractors.styles';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { City } from '@/types/core';
+import { Instructor } from '@/types/instructor';
+import { API_BASE_URL } from '../../utils/config';
 
 export default function InstructorsScreen(): React.JSX.Element {
   const { instructors } = InstructorSelectors();
@@ -36,14 +38,27 @@ export default function InstructorsScreen(): React.JSX.Element {
     (navigation as any).navigate('InstructorProfile', { instructorId });
   };
 
+  const getItemPicture = (instructor: Instructor) => {
+    // Générer une URL d'image aléatoire basée sur l'ID de l'instructeur
+    if(instructor?.picture) {
+      if(instructor.picture.startsWith('http')) {
+        return instructor.picture;
+      }
+      return API_BASE_URL + '/' + instructor.picture;
+    }
+    return "https://randomuser.me/api/portraits/lego/1.jpg";
+  };
+
   const renderInstructor = ({ item }: { item: any }) => (
     <InstructorCard
+      key={item.id}
       name={item.name}
       title={`${item.city} - Note: ${item.rating} / 5`}
       badges={[
         { icon: '💰', label: `${item.pricePerHour} ${item.currency} / h` },
         // Ajouter plus de badges si nécessaire
       ]}
+      avatarUri={getItemPicture(item)}
       onViewProfile={() => onViewInstructorProfile(item.id)}
       onBookOnline={() => onBookInstructor(item.id)}
     />

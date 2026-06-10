@@ -22,4 +22,5 @@ export interface Instructor {
   location?: InstructorLocation;
   carServiceType?: CarServiceType;
   bookedSlots?: {[key: string]: string[]};
+  picture?: string;
 }
