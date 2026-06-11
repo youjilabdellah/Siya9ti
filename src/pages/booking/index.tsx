@@ -71,6 +71,26 @@ function isSameDay(a: Date, b: Date): boolean {
     a.getDate() === b.getDate()
   );
 }
+
+const parseMinutes = (t: string) => {
+  const timePart = (t || '').split('_')[0];
+  const [hh, mm] = (timePart || '').split(':').map((s) => Number(s));
+  const h = Number.isFinite(hh) ? hh : 0;
+  const m = Number.isFinite(mm) ? mm : 0;
+  return h * 60 + m;
+};
+
+function getSelectedRange(selected: Set<string> | undefined) {
+  if (!selected || selected.size === 0) {
+    return { minKey: null as string | null, maxKey: null as string | null, minMinutes: null as number | null, maxMinutes: null as number | null };
+  }
+
+  const arr = Array.from(selected);
+  arr.sort((a, b) => parseMinutes(a) - parseMinutes(b));
+  const minKey = arr[0];
+  const maxKey = arr[arr.length - 1];
+  return { minKey, maxKey, minMinutes: parseMinutes(minKey), maxMinutes: parseMinutes(maxKey) };
+}
 /*
 function getWeekStart(date: Date): Date {
   const d = new Date(date);
@@ -103,15 +123,16 @@ const LegendDot: React.FC<LegendDotProps> = ({ booked }) => (
 interface DayViewProps {
   bookedSlots: Set<string>;
   selectedSlots: Set<string>;
+  selected: boolean;
   onToggleSlot: (key: string) => void;
 }
 
-const DayView: React.FC<DayViewProps> = ({ bookedSlots, selectedSlots, onToggleSlot }) => (
+const DayView: React.FC<DayViewProps> = ({ bookedSlots, selectedSlots, onToggleSlot, selected }) => (
   <ScrollView style={styles.dayContainer} showsVerticalScrollIndicator={false}>
     {TIME_SLOTS.map((slot) => {
       const key = `${slot.time}`;
       const isBooked = bookedSlots.has(`${slot.time}_1`);
-      const isSelected = selectedSlots.has(key);
+      const isSelected = selected && selectedSlots.has(key);
 
       return (
         <TouchableOpacity
@@ -316,6 +337,7 @@ const BookingCalendar: React.FC = () => {
   const navigation = useNavigation<any>();
   //const [viewMode, setViewMode] = useState<ViewMode>('Jour');
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [dateSlots, setDateSlots] = useState<Date>(new Date());
   const [selectedSlots, setSelectedSlots] = useState<Set<string>>(new Set());
   const [bookedSlots, setBookedSlots] = useState<Set<string>>(new Set());
   const dispatch = useAppDispatch();
@@ -358,13 +380,32 @@ const BookingCalendar: React.FC = () => {
   };
 
   const toggleSlot = useCallback((key: string) => {
-    setSelectedSlots((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) {next.delete(key);}
-      else {next.add(key);}
-      return next;
-    });
-  }, []);
+    if(currentDate !== dateSlots) {
+      setSelectedSlots(new Set([key]));
+      setDateSlots(currentDate);
+      return;
+    }
+    const { minMinutes, maxMinutes } = getSelectedRange(selectedSlots);
+    const keyMinutes = parseMinutes(key);
+    if(keyMinutes > maxMinutes! + 60 || keyMinutes < minMinutes! - 60) {
+      // If trying to select a slot that is more than 1 hour away from the current range, reset selection to just that slot
+      setSelectedSlots(new Set([key]));
+    } else {
+      setSelectedSlots((prev) => {
+        const next = new Set(prev);
+        if (next.has(key)) {
+          if(keyMinutes > minMinutes! && keyMinutes < maxMinutes!) {
+            return new Set(); // If unselecting a slot within the current range, clear all selection (enforce contiguous selection)
+          }
+          else {
+            next.delete(key);
+          }
+        }
+        else {next.add(key);}
+        return next;
+      });
+    }
+  }, [selectedSlots, currentDate, dateSlots]);
 
   const handleBook = () => {
     if (selectedSlots.size === 0) {
@@ -505,7 +546,7 @@ const BookingCalendar: React.FC = () => {
 
           {/* Calendar content */}
           <View style={styles.calContent}>
-            <DayView selectedSlots={selectedSlots} onToggleSlot={toggleSlot} bookedSlots={bookedSlots}/>
+            <DayView selectedSlots={selectedSlots} onToggleSlot={toggleSlot} bookedSlots={bookedSlots} selected={currentDate.toDateString() === dateSlots.toDateString()}/>
           </View>
 
           {/* Info */}

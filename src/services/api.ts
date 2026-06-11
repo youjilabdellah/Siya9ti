@@ -71,7 +71,7 @@ export const getInstructorBookedSlots = (instructorId: string): Promise<{[key: s
 export const bookLesson = (
     bookingRequest: BookingRequest
 ): Promise<BookingResponse> => {
-    return baseRequest(API_END_POINT.BOOK, 'POST', bookingRequest);
+    return authorizedRequest(API_END_POINT.BOOK, 'POST', bookingRequest);
 };
 
 export const getMyReservations = (): Promise<MyReservation[]> => {

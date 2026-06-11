@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Keyboard,
-  Platform,
-  StatusBar,
   StyleSheet,
   Text,
   TextInput,
