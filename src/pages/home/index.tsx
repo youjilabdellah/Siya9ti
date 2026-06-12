@@ -17,6 +17,7 @@ import Background from '../../assets/background.png';
 import { styles } from './home.styles';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { City } from '../../types/core';
+import useTranslation from '../../hooks/useTranslation';
 
 export default function HomeScreen() {
   const [city, setCity] = useState<City | null>(null);
@@ -24,6 +25,7 @@ export default function HomeScreen() {
   const navigation = useNavigation<any>();
   const { cities } = InstructorSelectors();
   const { selectedLanguage, setSelectedLanguage } = useContext(TranslationContext);
+  const { t } = useTranslation();
 
   const toggleLanguage = () => {
     if (!setSelectedLanguage) {
@@ -51,7 +53,7 @@ export default function HomeScreen() {
         style={styles.hero}
       >
         <Text style={styles.heroTitle}>
-          Trouvez un moniteur d'auto-école dans votre ville.
+          {t.home.heroTitle}
         </Text>
         <Text style={styles.heroSubtitle}>
           Sélectionnez votre ville pour voir la disponibilité des leçons de conduite, les tarifs et réserver en ligne.

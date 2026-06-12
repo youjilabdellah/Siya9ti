@@ -46,4 +46,8 @@
       "December"
     ]
   }
+  ,
+  "home": {
+    "heroTitle": "Find a driving instructor in your city."
+  }
 }

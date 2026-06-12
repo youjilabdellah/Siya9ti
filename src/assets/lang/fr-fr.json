@@ -46,4 +46,8 @@
       "Décembre"
     ]
   }
+  ,
+  "home": {
+    "heroTitle": "Trouvez un moniteur d'auto-école dans votre ville."
+  }
 }
