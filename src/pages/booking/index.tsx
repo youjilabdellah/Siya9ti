@@ -124,12 +124,16 @@ interface DayViewProps {
   bookedSlots: Set<string>;
   selectedSlots: Set<string>;
   selected: boolean;
+  isToday?: boolean;
   onToggleSlot: (key: string) => void;
 }
 
-const DayView: React.FC<DayViewProps> = ({ bookedSlots, selectedSlots, onToggleSlot, selected }) => (
+const DayView: React.FC<DayViewProps> = ({ bookedSlots, selectedSlots, onToggleSlot, selected, isToday }) => (
   <ScrollView style={styles.dayContainer} showsVerticalScrollIndicator={false}>
-    {TIME_SLOTS.map((slot) => {
+    {TIME_SLOTS.filter((slot) => {
+      const [hh] = slot.time.split(':').map(Number);
+      return isToday ? hh >= new Date().getHours() + 1 : true; // If it's today, only show current and future hours
+    }).map((slot) => {
       const key = `${slot.time}`;
       const isBooked = bookedSlots.has(`${slot.time}_1`);
       const isSelected = selected && selectedSlots.has(key);
@@ -380,6 +384,10 @@ const BookingCalendar: React.FC = () => {
   };
 
   const toggleSlot = useCallback((key: string) => {
+    if(selectedSlots.size === 3 && !selectedSlots.has(key)) {
+      errorToast('Vous ne pouvez sélectionner que 3 créneaux à la fois.');
+      return;
+    }
     if(currentDate !== dateSlots) {
       setSelectedSlots(new Set([key]));
       setDateSlots(currentDate);
@@ -546,7 +554,7 @@ const BookingCalendar: React.FC = () => {
 
           {/* Calendar content */}
           <View style={styles.calContent}>
-            <DayView selectedSlots={selectedSlots} onToggleSlot={toggleSlot} bookedSlots={bookedSlots} selected={currentDate.toDateString() === dateSlots.toDateString()}/>
+            <DayView selectedSlots={selectedSlots} onToggleSlot={toggleSlot} bookedSlots={bookedSlots} selected={currentDate.toDateString() === dateSlots.toDateString()} isToday={currentDate.toDateString() === new Date().toDateString()} />
           </View>
 
           {/* Info */}
