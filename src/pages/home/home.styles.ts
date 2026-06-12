@@ -138,4 +138,7 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: Colors.input.background,
   },
+  langBtn: {
+    padding: 10,
+  },
 });

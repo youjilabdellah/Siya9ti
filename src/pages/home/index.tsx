@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { getCities, InstructorSelectors } from '../../reducers/instructor';
+import { TranslationContext } from '../../context/translation';
+import { LANGUAGE_FRENSH, LANGUAGE_ARABIC } from '../../utils/constants';
 
 
 import Background from '../../assets/background.png';
@@ -21,6 +23,15 @@ export default function HomeScreen() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const { cities } = InstructorSelectors();
+  const { selectedLanguage, setSelectedLanguage } = useContext(TranslationContext);
+
+  const toggleLanguage = () => {
+    if (!setSelectedLanguage) {
+      return;
+    }
+    const next = selectedLanguage?.shortCode === LANGUAGE_FRENSH.shortCode ? LANGUAGE_ARABIC : LANGUAGE_FRENSH;
+    setSelectedLanguage(next);
+  };
 
   useEffect(() => {
     dispatch(getCities({}));
@@ -28,6 +39,12 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <View />
+        <TouchableOpacity onPress={toggleLanguage} style={styles.langBtn}>
+          <Text>{selectedLanguage?.title || LANGUAGE_FRENSH.title}</Text>
+        </TouchableOpacity>
+      </View>
       {/* HERO */}
       <ImageBackground
         source={Background}
