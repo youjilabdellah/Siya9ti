@@ -1,0 +1,49 @@
+{
+  "booking": {
+    "bannerText": "To start the booking process, please select the desired time slots in the calendar below.",
+    "legendAvailable": "Available",
+    "legendBooked": "Booked",
+    "dayStatus": {
+      "available": "Available",
+      "booked": "Booked",
+      "selected": "Selected"
+    },
+    "infoText": "Start times are one-hour slots.",
+    "bookButton": "BOOK WITH {name}",
+    "noSelectionTitle": "No slot selected",
+    "noSelectionMessage": "Please select at least one slot before booking.",
+    "confirmTitle": "Confirm booking",
+    "confirmMessage": "You selected {count} slot(s). Continue booking with {name}?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "success": "Your booking was created successfully.",
+    "error": "An error occurred while creating the booking. Please try again.",
+    "selectionLimit": "You can only select up to 3 slots at once.",
+    "back": "← Back",
+    "today": "Today",
+    "languageLabel": "Language",
+    "daysFull": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ]
+  }
+}

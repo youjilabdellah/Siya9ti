@@ -1,0 +1,49 @@
+{
+  "booking": {
+    "bannerText": "Pour commencer le processus de réservation, veuillez sélectionner les créneaux souhaités dans le calendrier ci-dessous.",
+    "legendAvailable": "Disponible",
+    "legendBooked": "Complet",
+    "dayStatus": {
+      "available": "Disponible",
+      "booked": "Complet",
+      "selected": "Sélectionné"
+    },
+    "infoText": "Les heures de début sont par tranches de 1 heure.",
+    "bookButton": "RÉSERVER AVEC {name}",
+    "noSelectionTitle": "Aucun créneau sélectionné",
+    "noSelectionMessage": "Veuillez sélectionner au moins un créneau avant de réserver.",
+    "confirmTitle": "Confirmer la réservation",
+    "confirmMessage": "Vous avez sélectionné {count} créneau(s). Continuer la réservation avec {name}?",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "success": "Votre réservation a été créée avec succès.",
+    "error": "Une erreur est survenue lors de la création de la réservation. Veuillez réessayer.",
+    "selectionLimit": "Vous ne pouvez sélectionner que 3 créneaux à la fois.",
+    "back": "← Retour",
+    "today": "Aujourd'hui",
+    "languageLabel": "Langue",
+    "daysFull": [
+      "Dimanche",
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi"
+    ],
+    "months": [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre"
+    ]
+  }
+}

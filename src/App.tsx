@@ -24,6 +24,7 @@ import ResetPasswordScreen from './pages/resetPassword/index';
 import NewPasswordScreen from './pages/newPassword/index';
 import { initializeNotifications } from './services/notifications';
 import toastConfig from './utils/customToast';
+import TranslationManager from './shared/translationManager';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -93,8 +94,10 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <AppContent />
-        <Toast config={toastConfig} />
+        <TranslationManager>
+          <AppContent />
+          <Toast config={toastConfig} />
+        </TranslationManager>
       </PersistGate>
     </Provider>
   );

@@ -1,10 +1,10 @@
-import enData from '@/assets/lang/en-us.json';
+import frData from '@/assets/lang/fr-fr.json';
 
-export type LanguageTranslationData = typeof enData;
+export type LanguageTranslationData = typeof frData;
 
-export type LanguageShortCode = 'en' | 'es';
+export type LanguageShortCode = 'fr' | 'ar';
 
-export type LanguageFullCode = 'en-us' | 'es-419';
+export type LanguageFullCode = 'fr-fr' | 'ar-SA';
 
 export type TranslationLanguage = {
     shortCode: LanguageShortCode;
