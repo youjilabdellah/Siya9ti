@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
 import useAppDispatch from '../../hooks/useAppDispatch';
+import useTranslation from '../../hooks/useTranslation';
 import { fetchUserInfo } from '../../reducers/user';
 import { errorToast } from '../../utils/customToast';
 import { getFcmToken } from '../../services/notifications';
@@ -27,17 +28,17 @@ interface LoginFormData {
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 
-const validate = (values: LoginFormData) => {
+const validate = (values: LoginFormData, t: any) => {
     const errors: Partial<Record<keyof LoginFormData, string>> = {};
 
     if (!values.email.trim()) {
-        errors.email = "L'adresse e-mail est requise.";
+        errors.email = t.login.emailRequired;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-        errors.email = 'Veuillez saisir une adresse e-mail valide.';
+        errors.email = t.login.emailInvalid;
     }
 
     if (!values.password.trim()) {
-        errors.password = 'Le mot de passe est requis.';
+        errors.password = t.login.passwordRequired;
     }
 
     return errors;
@@ -48,6 +49,7 @@ const validate = (values: LoginFormData) => {
 export default function LoginScreen() {
     const navigation = useNavigation();
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
 
     const initialValues: LoginFormData = {
         email: '',
@@ -62,12 +64,12 @@ export default function LoginScreen() {
                 console.log('FCM Token:', fcmToken);
                 navigation.goBack();
             }).catch(() => {
-                errorToast('Identifiants incorrects. Veuillez réessayer.');
+                errorToast(t.login.credentialsError);
             });
     };
 
     return (
-        <Formik initialValues={initialValues} validate={validate} onSubmit={handleFormSubmit}>
+        <Formik initialValues={initialValues} validate={(values) => validate(values, t)} onSubmit={handleFormSubmit}>
             {({ handleChange, handleBlur, handleSubmit: submitForm, values, errors, touched }) => (
                 <SafeAreaView style={styles.safe}>
                     <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -85,21 +87,21 @@ export default function LoginScreen() {
                             onPress={() => (navigation.navigate as any)('Home')}
                             activeOpacity={0.7}
                         >
-                            <Text style={styles.backBtnText}>← Acceuil</Text>
+                            <Text style={styles.backBtnText}>{t.login.backButton}</Text>
                         </TouchableOpacity>
 
                         {/* Logo / Brand */}
                         <View style={styles.brandContainer}>
-                            <Text style={styles.brandTitle}>Siya9ati</Text>
-                            <Text style={styles.brandSubtitle}>Bienvenue ! Connectez-vous à votre compte.</Text>
+                            <Text style={styles.brandTitle}>{t.login.brand}</Text>
+                            <Text style={styles.brandSubtitle}>{t.login.subtitle}</Text>
                         </View>
 
                         {/* Credentials Card */}
                         <View style={styles.card}>
-                            <SectionHeader title="CONNEXION À VOTRE COMPTE" />
+                            <SectionHeader title={t.login.sectionHeader} />
 
                             <FloatingInput
-                                label="Adresse e-mail"
+                                label={t.login.emailLabel}
                                 value={values.email}
                                 onChangeText={handleChange('email')}
                                 onBlur={handleBlur('email')}
@@ -111,7 +113,7 @@ export default function LoginScreen() {
                             ) : null}
 
                             <FloatingInput
-                                label="Mot de passe"
+                                label={t.login.passwordLabel}
                                 value={values.password}
                                 onChangeText={handleChange('password')}
                                 onBlur={handleBlur('password')}
@@ -126,7 +128,7 @@ export default function LoginScreen() {
                                 activeOpacity={0.7}
                                 onPress={() => (navigation.navigate as any)('ResetPassword')}
                             >
-                                <Text style={styles.forgotPassword}>Mot de passe oublié ?</Text>
+                                <Text style={styles.forgotPassword}>{t.login.forgotPassword}</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -137,16 +139,16 @@ export default function LoginScreen() {
                                 onPress={() => submitForm()}
                                 activeOpacity={0.85}
                             >
-                                <Text style={styles.continueBtnText}>SE CONNECTER →</Text>
+                                <Text style={styles.continueBtnText}>{t.login.signInButton}</Text>
                             </TouchableOpacity>
 
                             <View style={styles.registerRow}>
-                                <Text style={styles.registerText}>Pas encore de compte ? </Text>
+                                <Text style={styles.registerText}>{t.login.registerPrompt}</Text>
                                 <TouchableOpacity
                                     activeOpacity={0.7}
                                     onPress={() => (navigation.navigate as any)('Registration')}
                                 >
-                                    <Text style={styles.registerLink}>S'inscrire</Text>
+                                    <Text style={styles.registerLink}>{t.login.registerLink}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

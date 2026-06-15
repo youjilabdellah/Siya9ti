@@ -11,6 +11,7 @@ import { Formik } from 'formik';
 import { successToast, errorToast } from '../../utils/customToast';
 
 import useAppDispatch from '../../hooks/useAppDispatch';
+import useTranslation from '../../hooks/useTranslation';
 import { setUserInfo } from '../../reducers/user';
 import { createBooking } from '../../reducers/reservations';
 
@@ -28,6 +29,7 @@ export default function RegistrationScreen() {
     const navigation = useNavigation();
     const params = route.params as { instructorId: string, selectedSlots: string[], currentDate: Date } | undefined;
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
 
     const initialValues: FormData = {
         firstName: '',
@@ -87,7 +89,7 @@ export default function RegistrationScreen() {
         }))
         .unwrap()
         .then((booking) => {
-            successToast('Votre réservation a été créée avec succès.');
+            successToast(t.registration.successToast);
             dispatch(setUserInfo({
                 firstName: values.firstName,
                 lastName: values.lastName,
@@ -102,12 +104,12 @@ export default function RegistrationScreen() {
             });
         })
         .catch(() => {
-            errorToast('Une erreur est survenue lors de la création de la réservation. Veuillez réessayer.');
+            errorToast(t.registration.errorToast);
         });
     };
 
     return (
-        <Formik initialValues={initialValues} validate={validate} onSubmit={handleFormSubmit}>
+        <Formik initialValues={initialValues} validate={(values) => validate(values, t)} onSubmit={handleFormSubmit}>
             {({ handleChange, handleBlur, handleSubmit: submitForm, values, setFieldValue, errors, touched, submitCount }) => (
                 <SafeAreaView style={styles.safe}>
                     <View style={[styles.scroll, styles.backRow]}>
@@ -116,7 +118,7 @@ export default function RegistrationScreen() {
                             onPress={() => navigation.goBack()}
                             activeOpacity={0.7}
                         >
-                            <Text style={styles.backBtnText}>← Retour</Text>
+                            <Text style={styles.backBtnText}>{t.registration.backButton}</Text>
                         </TouchableOpacity>
                     </View>
                     {   params?.selectedSlots &&
@@ -135,27 +137,27 @@ export default function RegistrationScreen() {
                     >
                         {/* Personal Details */}
                         <View style={styles.card}>
-                            <SectionHeader title="VEUILLEZ FOURNIR LES INFORMATIONS PERSONNELLES DE L'ÉLÈVE" />
-                            <FloatingInput label="Prénom" value={values.firstName} onChangeText={handleChange('firstName')} onBlur={handleBlur('firstName')} required />
+                            <SectionHeader title={t.registration.personalInfoHeader} />
+                            <FloatingInput label={t.registration.firstNameLabel} value={values.firstName} onChangeText={handleChange('firstName')} onBlur={handleBlur('firstName')} required />
                             {touched.firstName && errors.firstName ? <Text style={styles.errorText}>{errors.firstName}</Text> : null}
-                            <FloatingInput label="Nom" value={values.lastName} onChangeText={handleChange('lastName')} onBlur={handleBlur('lastName')} required />
+                            <FloatingInput label={t.registration.lastNameLabel} value={values.lastName} onChangeText={handleChange('lastName')} onBlur={handleBlur('lastName')} required />
                             {touched.lastName && errors.lastName ? <Text style={styles.errorText}>{errors.lastName}</Text> : null}
-                            <FloatingInput label="Adresse e-mail" value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur('email')} keyboardType="email-address" required />
+                            <FloatingInput label={t.registration.emailLabel} value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur('email')} keyboardType="email-address" required />
                             {touched.email && errors.email ? <Text style={styles.errorText}>{errors.email}</Text> : null}
-                            <Text style={styles.hint}>Nous utilisons votre e-mail pour envoyer les détails de confirmation de la leçon.</Text>
-                            <FloatingInput label="Téléphone" value={values.phone} onChangeText={handleChange('phone')} onBlur={handleBlur('phone')} keyboardType="phone-pad" required />
+                            <Text style={styles.hint}>{t.registration.emailHint}</Text>
+                            <FloatingInput label={t.registration.phoneLabel} value={values.phone} onChangeText={handleChange('phone')} onBlur={handleBlur('phone')} keyboardType="phone-pad" required />
                             {touched.phone && errors.phone ? <Text style={styles.errorText}>{errors.phone}</Text> : null}
                         </View>
 
                         {/* Password */}
                         <View style={styles.card}>
-                            <SectionHeader title="CHOISISSEZ UN MOT DE PASSE POUR LE TABLEAU DE BORD" />
+                            <SectionHeader title={t.registration.passwordSectionHeader} />
                             <Text style={styles.hint}>
-                                Votre tableau de bord vous permet de créer, gérer et consulter vos réservations en ligne 24h/24 et 7j/7.
+                                {t.registration.passwordHint}
                             </Text>
-                            <FloatingInput label="Mot de passe" value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur('password')} secureTextEntry required />
+                            <FloatingInput label={t.registration.passwordLabel} value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur('password')} secureTextEntry required />
                             {touched.password && errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
-                            <FloatingInput label="Confirmer le mot de passe" value={values.confirmPassword} onChangeText={handleChange('confirmPassword')} onBlur={handleBlur('confirmPassword')} secureTextEntry required />
+                            <FloatingInput label={t.registration.confirmPasswordLabel} value={values.confirmPassword} onChangeText={handleChange('confirmPassword')} onBlur={handleBlur('confirmPassword')} secureTextEntry required />
                             {touched.confirmPassword && errors.confirmPassword ? <Text style={styles.errorText}>{errors.confirmPassword}</Text> : null}
                         </View>
 
@@ -170,14 +172,13 @@ export default function RegistrationScreen() {
                                     {values.agreed && <Text style={styles.checkmark}>✓</Text>}
                                 </View>
                                 <Text style={styles.termsText}>
-                                    J'accepte{' '}
-                                    <Text style={styles.termsLink}>les conditions générales de Siya9ati</Text>
+                                    {t.registration.termsCheckbox}
                                 </Text>
                             </TouchableOpacity>
                             {submitCount > 0 && errors.agreed ? <Text style={styles.errorText}>{errors.agreed}</Text> : null}
 
                             <TouchableOpacity style={styles.continueBtn} onPress={() => submitForm()} activeOpacity={0.85}>
-                                <Text style={styles.continueBtnText}>CONTINUER →</Text>
+                                <Text style={styles.continueBtnText}>{t.registration.continueButton}</Text>
                             </TouchableOpacity>
                         </View>
                     </KeyboardAwareScrollView>

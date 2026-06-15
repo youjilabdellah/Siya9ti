@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,15 +9,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { getCities, InstructorSelectors } from '../../reducers/instructor';
-import { TranslationContext } from '../../context/translation';
 import { LANGUAGE_FRENSH, LANGUAGE_ARABIC } from '../../utils/constants';
-
+import useTranslation from '../../hooks/useTranslation';
+import { useContext } from 'react';
+import { TranslationContext } from '../../context/translation';
 
 import Background from '../../assets/background.png';
 import { styles } from './home.styles';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { City } from '../../types/core';
-import useTranslation from '../../hooks/useTranslation';
 
 export default function HomeScreen() {
   const [city, setCity] = useState<City | null>(null);
@@ -56,15 +56,15 @@ export default function HomeScreen() {
           {t.home.heroTitle}
         </Text>
         <Text style={styles.heroSubtitle}>
-          Sélectionnez votre ville pour voir la disponibilité des leçons de conduite, les tarifs et réserver en ligne.
+          {t.home.heroSubtitle}
         </Text>
       </ImageBackground>
 
       {/* CARD */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Trouver un moniteur d'auto-école</Text>
+        <Text style={styles.cardTitle}>{t.home.cardTitle}</Text>
         <Text style={styles.cardSubtitle}>
-          Y compris les disponibilités, les tarifs et les réservations
+          {t.home.cardSubtitle}
         </Text>
 
         {/* DROPDOWN */}
@@ -80,7 +80,7 @@ export default function HomeScreen() {
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={'Entrer votre ville'}
+          placeholder={t.home.dropdownPlaceholder}
           searchPlaceholder="Search..."
           value={city}
           onChange={(item) => setCity(item as City)}
@@ -96,7 +96,7 @@ export default function HomeScreen() {
           }}
           disabled={!city}
         >
-          <Text style={styles.buttonText}>RECHERCHER</Text>
+          <Text style={styles.buttonText}>{t.home.searchButton}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
