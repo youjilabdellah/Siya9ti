@@ -28,7 +28,7 @@ const API_END_POINT = {
     GET_INSTRUCTOR_PRICING: 'instructors/{0}/pricing',
     GET_INSTRUCTOR_BOOKED_SLOTS: 'instructors/{0}/booked',
     BOOK: 'bookings',
-    CANCEL_RESERVATION: 'my-reservation/cancel/{0}',
+    CANCEL_RESERVATION: 'bookings/{0}',
     LOGIN: 'user/login',
     LOGOUT: 'user/logout',
     RESET_PASSWORD: 'user/reset-password',
@@ -82,7 +82,7 @@ export const cancelReservation = (
 ): Promise<MyReservation> => {
     return authorizedRequest(
         COMMON.stringFormat(API_END_POINT.CANCEL_RESERVATION, reservationId),
-        'POST'
+        'DELETE'
     );
 };
 
