@@ -28,7 +28,6 @@ const API_END_POINT = {
     GET_INSTRUCTOR_PRICING: 'instructors/{0}/pricing',
     GET_INSTRUCTOR_BOOKED_SLOTS: 'instructors/{0}/booked',
     BOOK: 'bookings',
-    MY_RESERVATIONS: 'my-reservations',
     CANCEL_RESERVATION: 'my-reservation/cancel/{0}',
     LOGIN: 'user/login',
     LOGOUT: 'user/logout',
@@ -75,7 +74,7 @@ export const bookLesson = (
 };
 
 export const getMyReservations = (): Promise<MyReservation[]> => {
-    return authorizedRequest(API_END_POINT.MY_RESERVATIONS);
+    return authorizedRequest(API_END_POINT.BOOK);
 };
 
 export const cancelReservation = (
